@@ -1,5 +1,4 @@
-from flask import Flask, render_template
-import csv
+from flask import Flask
 
 app = Flask(__name__)
 
@@ -12,6 +11,10 @@ def route_list():
     return render_template('list.html', data=data)
 
 
+
+@app.route('/add-question')
+def add_questuion():
+    return render_template('add_question.html')
 
 if __name__ == '__main__':
     app.run()
