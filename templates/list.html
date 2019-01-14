@@ -26,7 +26,8 @@
                 <td ><a href="question/{{ line['ID'] }}">{{ line['submission_time'] }}</a></td>
                 <td >{{ line['view_number'] }}</td>
                 <td >{{ line['vote_number'] }}</td>
-                <td >{{ line['title,message']}}</td>
+                <td >{{ line['title']}}</td>
+                <td >{{ line['message'] }}</td>
                 <td >{{ line['image']}}</td>
             </tr>
             {% endfor %}
