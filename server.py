@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -10,7 +10,7 @@ def hello_world():
 
 @app.route('/add-question')
 def add_questuion():
-    return 'You will be able to add questions here'
+    return render_template('add_question.html')
 
 if __name__ == '__main__':
     app.run()
