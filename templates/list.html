@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ask Mate</title>
+</head>
+<body>
+    <h1>Ask Mate</h1>
+    <a href="/question">Add new Question</a>
+    <table>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Submission Time</th>
+                <th>View number</th>
+                <th>Vote number</th>
+                <th>Title</th>
+                <th>Message</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for line in data: %}
+            <tr>
+                <td >{{ line['id'] }}</td>
+                <td ><a href="question/{{ line['ID'] }}">{{ line['submission_time'] }}</a></td>
+                <td >{{ line['view_number'] }}</td>
+                <td >{{ line['vote_number'] }}</td>
+                <td >{{ line['title,message']}}</td>
+                <td >{{ line['image']}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+
+
+
