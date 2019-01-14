@@ -8,7 +8,7 @@ app = Flask(__name__)
 def route_list():
     with open ('sample_data/question.csv', 'r') as file:
         data_file = csv.DictReader(file)
-        data = list(data_file)
+        data = reversed(list(data_file))
     return render_template('list.html', data=data)
 
 
