@@ -2,9 +2,27 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Welcome to AskMate</title>
+    <title>Question Display</title>
 </head>
 <body>
-
+    <h2>{{ story['title'] }}</h2>
+    <table>
+        <thead>
+            <td>ID</td>
+            <td>Submission time</td>
+            <td>Number of view</td>
+            <td>Number of vote</td>
+        </thead>
+        <tbody>
+            <td>{{ story['id'] }}</td>
+            <td>{{ story['submission_time'] }}</td>
+            <td>{{ story['view_number'] }}</td>
+            <td>{{ story['vote_number'] }}</td>
+        </tbody>
+    </table>
+    <p>Message:</p>
+    <p>{{ story['message'] }}</p>
+    <p>Image:</p>
+    <p>{{ story['image'] }}</p>
 </body>
 </html>

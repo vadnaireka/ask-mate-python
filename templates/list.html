@@ -10,7 +10,7 @@
     <a href="/add-question">Add new Question</a>
     <ul>
         {% for line in data: %}
-        <li><a href="/question/<id>">{{ line['title'] }}</a></li>
+        <li><a href="/question/{{ line['id'] }}">{{ line['title'] }}</a></li>
         {% endfor %}
     </ul>
 </body>
