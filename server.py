@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, session
+from flask import Flask, render_template, redirect, request, session, url_for
 import csv
 import time
 
@@ -27,11 +27,21 @@ def route_question(id=None, story=None):
     return render_template('question.html', story=story, story_answer=story_answer)
 
 
+@app.route('/add-question')
+def route_add_question():
+    return render_template('add_question.html')
+
 
 @app.route('/add-question', methods=['GET', 'POST'])
-def add_question():
+def route_save_question():
     if request.method == 'POST':
-        id += 1
+        all_id = []
+        file = open('sample_data/question.csv')
+        csv_file = csv.reader(file)
+        for row in csv_file:
+            all_id.append(row[0])
+        last_id = all_id[-1]
+        id = int(last_id) + 1
         submission_time = time.time()
         view_number = 0
         vote_number = 0
@@ -43,8 +53,11 @@ def add_question():
             writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
             writer.writerow({'id': id, 'submission_time': submission_time, 'view_number': view_number, 'vote_number': vote_number,
                          'title': title, 'message': message, 'image': image})
-    return render_template('add_question.html', )
+        return redirect(url_for('route_list'))
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(
+        debug=True,
+        port=5000
+    )
