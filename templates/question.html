@@ -20,9 +20,20 @@
             <td>{{ story['vote_number'] }}</td>
         </tbody>
     </table>
-    <p>Message:</p>
+    <h3>Message:</h3>
     <p>{{ story['message'] }}</p>
-    <p>Image:</p>
-    <p>{{ story['image'] }}</p>
+    {% if story['image']: %}
+        <p>Image:</p>
+        <p>{{ story['image'] }}</p>
+    {% endif %}
+    <h3>Answers:</h3>
+    <ul>
+        {% for line in story_answer: %}
+            {% if line['question_id'] == story['id'] %}
+                <li>{{ line['message'] }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
 </body>
 </html>
