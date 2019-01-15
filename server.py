@@ -13,20 +13,32 @@ def route_list():
     return render_template('list.html', data=data)
 
 
-@app.route('/question/<id>', methods=['GET'])
+@app.route('/question/<id>', methods=['GET', 'POST'])
 def route_question(id=None, story=None):
-    with open('sample_data/question.csv', 'r') as file:
-        data_file = csv.DictReader(file)
-        data = list(data_file)
-        for line in data:
-            if line['id'] == str(id):
-                story = line
-    with open ('sample_data/answer.csv', 'r') as file:
-        answer_file = csv.DictReader(file)
-        story_answer = list(answer_file)
+    if request.method == 'GET':
+        with open('sample_data/question.csv', 'r') as file:
+            data_file = csv.DictReader(file)
+            data = list(data_file)
+            for line in data:
+                if line['id'] == str(id):
+                    story = line
+        with open ('sample_data/answer.csv', 'r') as file:
+            answer_file = csv.DictReader(file)
+            story_answer = list(answer_file)
+    if request.method == 'POST':
+        with open ('sample_data/answer.csv', 'r') as file:
     return render_template('question.html', story=story, story_answer=story_answer)
 
 
+@app.route("/question/<id>/new-answer")
+def new_answer(id=id):
+    with open ('sample_data/question.csv', 'r') as file:
+        data_file = csv.DictReader(file)
+        data = list(data_file)
+        for line in data:
+            if line['id'] == id:
+                story = line
+    return render_template('new_answer.html', story=story)
 
 @app.route('/add-question', methods=['GET', 'POST'])
 def add_question():
