@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Answer</title>
+</head>
+<body>
+    <h2>{{ story['title'] }}</h2>
+    <p>{{ story['message'] }}</p>
+    <form action= '/question/{{story['id']}}' method="POST">
+        <p>
+            <label for="message">Answer:</label><br>
+            <textarea name="message" rows="5" cols="100" minlength="10" placeholder="Please enter your answer here..." required></textarea>
+        </p>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
