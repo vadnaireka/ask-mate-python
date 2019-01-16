@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, redirect, request, session, url_for
 import csv
 import time
@@ -21,6 +22,9 @@ def route_question(id=None, story=None):
         for line in data:
             if line['id'] == str(id):
                 story = line
+     #   if request.method == 'POST':
+      #      if request.form['vote-button'] == 'Upvote':
+         #   if request.form['vote-button'] == "Downvote":
     with open ('sample_data/answer.csv', 'r') as file:
         answer_file = csv.DictReader(file)
         story_answer = list(answer_file)

@@ -26,6 +26,8 @@
         <p>Image:</p>
         <p>{{ story['image'] }}</p>
     {% endif %}
+    <input type="submit" name="vote-button" value="Upvote">
+    <input type="submit" name="vote-button" value="Downvote">
     <h3>Answers:</h3>
     <ul>
         {% for line in story_answer: %}
