@@ -1,4 +1,37 @@
 h1 {
     color: darkslategray;
-    padding-left: 50px;
+    padding-left: 20px;
+    font-family: 'Chilanka', cursive;
+    font-size: 60px;
+    text-align: center;
+}
+
+h2{
+    color: darkslategray;
+    font-family: 'Chilanka', cursive;
+    padding-left: 20px;
+    padding-top: 30px;
+    text-decoration: underline;
+
+}
+
+a{
+    font-size: 20px;
+    padding-left: 20px;
+}
+
+body {
+    background-image: url("/static/pexels-photo-316466.jpeg");
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: 135%;
+    padding-left: 20px;
+}
+
+form{
+    padding-left: 20px;
+}
+
+li{
+    padding-bottom: 10px;
 }

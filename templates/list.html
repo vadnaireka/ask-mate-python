@@ -8,14 +8,19 @@
 <body>
     <h1>Ask Mate</h1>
     <a href="/add-question">Add new Question</a>
+    <h2>Questions:</h2>
     <p>
-        Order by:
         <form method="GET" action="/">
-            <select name="Sort">
-                <option value = "Title" >Title</option>
-                <option value = "Vote" >Vote</option>
-                <option value = "View" >View</option>
-                <option value = "ID" >ID</option>
+            Order by:
+            <select name="ordered_by">
+                <option value = "title" >Title</option>
+                <option value = "vote_number" >Vote</option>
+                <option value = "view_number" >View</option>
+                <option value = "id" selected>ID</option>
+            </select>
+            <select name="order_direction">
+                <option value="ascending">ascending</option>
+                <option value="descending" selected>descending</option>
             </select>
         <button type="submit">Submit</button>
         </form>
@@ -23,7 +28,7 @@
 
     <ul>
         {% for line in data: %}
-        <li><a href="/question/{{ line['id'] }}">{{ line['title'] }}</a></li>
+        <li><a href="/question/{{ line['id'] }}">{{ line['title']}} </a></li>
         {% endfor %}
     </ul>
 </body>
