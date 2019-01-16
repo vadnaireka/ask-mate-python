@@ -10,8 +10,8 @@
         <thead>
             <td>ID</td>
             <td>Submission time</td>
-            <td>Number of view</td>
-            <td>Number of vote</td>
+            <td>Number of views</td>
+            <td>Number of votes</td>
         </thead>
         <tbody>
             <td>{{ story['id'] }}</td>
@@ -26,16 +26,21 @@
         <p>Image:</p>
         <p>{{ story['image'] }}</p>
     {% endif %}
-    <input type="submit" name="vote-button" value="Upvote">
-    <input type="submit" name="vote-button" value="Downvote">
+    <input type="submit" name="question-vote-button" value="Upvote">
+    <input type="submit" name="question-vote-button" value="Downvote">
+    <hr>
     <h3>Answers:</h3>
     <ul>
         {% for line in story_answer: %}
             {% if line['question_id'] == story['id'] %}
-                <li>{{ line['message'] }}</li>
+                <p>{{ line['message'] }}</p>
+                <p><input type="submit" name="answer-vote-button" value="Upvote">
+                    <input type="submit" name="answer-vote-button" value="Downvote"></p>
+                <p>Vote number: {{ line['vote_number'] }}</p>
+                <hr>
             {% endif %}
         {% endfor %}
     </ul>
-    <a href="/question/{{story['id']}}/new-answer">Add a new answer</a>
+    <h3><a href="/question/{{story['id']}}/new-answer">Add a new answer</a></h3>
 </body>
 </html>
