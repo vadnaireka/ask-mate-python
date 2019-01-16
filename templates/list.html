@@ -8,6 +8,19 @@
 <body>
     <h1>Ask Mate</h1>
     <a href="/add-question">Add new Question</a>
+    <p>
+        Order by:
+        <form method="GET" action="/">
+            <select name="Sort">
+                <option value = "Title" >Title</option>
+                <option value = "Vote" >Vote</option>
+                <option value = "View" >View</option>
+                <option value = "ID" >ID</option>
+            </select>
+        <button type="submit">Submit</button>
+        </form>
+    </p>
+
     <ul>
         {% for line in data: %}
         <li><a href="/question/{{ line['id'] }}">{{ line['title'] }}</a></li>
