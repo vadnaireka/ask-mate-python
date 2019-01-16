@@ -1,9 +1,9 @@
 from flask import Flask, render_template, redirect, request, session, url_for
 import csv
 import time
+import functions
 
 app = Flask(__name__)
-
 
 @app.route('/', methods=['GET', 'POST'])
 def route_list():
@@ -14,7 +14,7 @@ def route_list():
 
 
 @app.route('/question/<id>', methods=['GET', 'POST'])
-def route_question(id=None, story=None):
+def route_question(id=id, story=None):
     if request.method == 'POST':
         with open ('sample_data/answer.csv', 'r') as file:
             data_file = csv.DictReader(file)
@@ -58,6 +58,7 @@ def new_answer(id=id):
                 story = line
     return render_template('new_answer.html', story=story)
 
+
 @app.route('/add-question')
 def route_add_question():
     return render_template('add_question.html')
@@ -85,6 +86,12 @@ def route_save_question():
             writer.writerow({'id': id, 'submission_time': submission_time, 'view_number': view_number, 'vote_number': vote_number,
                          'title': title, 'message': message, 'image': image})
         return redirect(url_for('route_list'))
+
+
+@app.route('/question/<id>/delete', methods=['GET', 'POST'])
+def delete_question_and_answers(id=id):
+    functions.delete_question_and_answers_by_user_id(id)
+    return redirect(url_for('route_list'))
 
 
 if __name__ == '__main__':

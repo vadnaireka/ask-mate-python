@@ -28,6 +28,7 @@
     {% endif %}
     <input type="submit" name="question-vote-button" value="Upvote">
     <input type="submit" name="question-vote-button" value="Downvote">
+    <a href= "/question/{{ story['id'] }}/delete" ><input type="button" value=Delete></a>
     <hr>
     <h3>Answers:</h3>
     <ul>
@@ -42,5 +43,8 @@
         {% endfor %}
     </ul>
     <h3><a href="/question/{{story['id']}}/new-answer">Add a new answer</a></h3>
+
+
+
 </body>
 </html>
