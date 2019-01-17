@@ -1,9 +1,9 @@
-from flask import Flask, render_template, redirect, request, session, url_for
+from flask import Flask, render_template, redirect, request, url_for
 import csv
 import time
+import functions
 
 app = Flask(__name__)
-
 
 @app.route('/', methods=['GET', 'POST'])
 def route_list():
@@ -14,7 +14,7 @@ def route_list():
 
 
 @app.route('/question/<id>', methods=['GET', 'POST'])
-def route_question(id=None, story=None):
+def route_question(id=id, story=None):
     if request.method == 'POST':
         with open ('sample_data/answer.csv', 'r') as file:
             data_file = csv.DictReader(file)
@@ -55,6 +55,7 @@ def new_answer(id=id):
                 story = line
     return render_template('new_answer.html', story=story)
 
+
 @app.route('/add-question')
 def route_add_question():
     return render_template('add_question.html')
@@ -84,32 +85,32 @@ def route_save_question():
         return redirect(url_for('route_list'))
 
 
-@app.route('/question/<question_id>/vote-up', methods=['POST'])
-def route_voteup():
-    if request.method == 'POST':
-        if request.form['question-vote-button'] == 'Upvote':
-            with open('sample_data/question.csv', 'r') as file:
-                data_file = csv.DictReader(file)
-                data = list(data_file)
-                for line in data:
-                    if line['question_id'] == question_id:
-                        line['vote_number'] += 1
-                        fieldnames = ['id', 'submission_time', 'view_number', 'vote_number', 'title', 'message', 'image']
-                        with open('sample_data/question.csv', 'w') as file:
-                            writer = csv.DictWriter(file, fieldnames=fieldnames)
-                            writer.writeheader(fieldnames)
-                        with open('sample_data/question.csv', 'a') as file:
-                            writer = csv.DictWriter(file, fieldnames=fieldnames)
-                            for line in data
+@app.route('/question/<id>/delete', methods=['GET', 'POST'])
+def delete_question_and_answers(id=id):
+    functions.delete_question_and_answers_by_user_id(id)
+    return redirect(url_for('route_list'))
 
-
-@app.route('/question/<question_id>/vote-down', methods=['POST'])
-def route_votedown():
-    if request.method == 'POST':
-        if request.form['question-vote-button'] == 'Downvote':
-            pass
-        if request.form['answer-vote-button'] == 'Downvote':
-            pass
+#
+# @app.route('/question/<question_id>/vote-up', methods=['POST'])
+# def route_voteup(id):
+#     with open('sample_data/question.csv', 'r') as file:
+#         data_file = csv.DictReader(file)
+#         data = list(data_file)
+#     if request.method == 'POST':
+#         for line in data:
+#             if request.form[story['id']] == line['id']:
+#                 print(line['vote_number'])
+#     return render_template('question.html', id=id)
+#
+#
+#
+# @app.route('/question/<question_id>/vote-down', methods=['POST'])
+# def route_votedown():
+#     if request.method == 'POST':
+#         if request.form['question-vote-button'] == 'Downvote':
+#             pass
+#         if request.form['answer-vote-button'] == 'Downvote':
+#             pass
 
 if __name__ == '__main__':
     app.run(
