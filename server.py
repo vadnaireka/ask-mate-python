@@ -23,7 +23,7 @@ def route_question(id=None, story=None):
             for line in all_answers:
                 answer_ids.append(line['id'])
         answer_id = int(answer_ids[-1]) +1
-        submission_time = time.time()
+        submission_time = time.time()[:10]
         vote_number=0
         question_id= id
         message = request.form['message']
@@ -39,9 +39,6 @@ def route_question(id=None, story=None):
         for line in data:
             if line['id'] == str(id):
                 story = line
-        #   if request.method == 'POST':
-        #      if request.form['question-vote-button'] == 'Upvote':
-        #      if request.form['question-vote-button'] == "Downvote":
     with open('sample_data/answer.csv', 'r') as file:
         answer_file = csv.DictReader(file)
         story_answer = list(answer_file)
@@ -73,7 +70,7 @@ def route_save_question():
             all_id.append(row[0])
         last_id = all_id[-1]
         id = int(last_id) + 1
-        submission_time = time.time()
+        submission_time = time.time()[:10]
         view_number = 0
         vote_number = 0
         title = request.form['title']
@@ -86,6 +83,33 @@ def route_save_question():
                          'title': title, 'message': message, 'image': image})
         return redirect(url_for('route_list'))
 
+
+@app.route('/question/<question_id>/vote-up', methods=['POST'])
+def route_voteup():
+    if request.method == 'POST':
+        if request.form['question-vote-button'] == 'Upvote':
+            with open('sample_data/question.csv', 'r') as file:
+                data_file = csv.DictReader(file)
+                data = list(data_file)
+                for line in data:
+                    if line['question_id'] == question_id:
+                        line['vote_number'] += 1
+                        fieldnames = ['id', 'submission_time', 'view_number', 'vote_number', 'title', 'message', 'image']
+                        with open('sample_data/question.csv', 'w') as file:
+                            writer = csv.DictWriter(file, fieldnames=fieldnames)
+                            writer.writeheader(fieldnames)
+                        with open('sample_data/question.csv', 'a') as file:
+                            writer = csv.DictWriter(file, fieldnames=fieldnames)
+                            for line in data
+
+
+@app.route('/question/<question_id>/vote-down', methods=['POST'])
+def route_votedown():
+    if request.method == 'POST':
+        if request.form['question-vote-button'] == 'Downvote':
+            pass
+        if request.form['answer-vote-button'] == 'Downvote':
+            pass
 
 if __name__ == '__main__':
     app.run(
