@@ -30,7 +30,7 @@
     <input type="submit" name="question-vote-button" value="Upvote">
     <input type="submit" name="question-vote-button" value="Downvote">
     <a href= "/question/{{ story['id'] }}/delete" ><input type="button" value=Delete></a>
-    <hr>
+    <hr style="margin-right: 600px;">
     <h3>Answers:</h3>
     <ul>
         {% for line in story_answer: %}
@@ -39,7 +39,7 @@
                 <p><input type="submit" name="answer-vote-button" value="Upvote">
                     <input type="submit" name="answer-vote-button" value="Downvote"></p>
                 <p>Vote number: {{ line['vote_number'] }}</p>
-                <hr>
+                <hr style="margin-right: 600px">
             {% endif %}
         {% endfor %}
     </ul>
