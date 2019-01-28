@@ -1,4 +1,43 @@
 h1 {
     color: darkslategray;
-    padding-left: 50px;
+    padding-right: 140px;
+    padding-top: 100px;
+    font-family: 'Courier New', cursive;
+    font-size: 60px;
+    text-align: right;
+}
+
+h2{
+    color: darkslategray;
+    font-family: 'Courier New', cursive;
+    padding-left: 20px;
+    padding-top: 30px;
+    text-decoration: underline;
+
+}
+
+a{
+    font-size: 20px;
+    padding-left: 20px;
+}
+
+body {
+    background-image: url("/static/apple-background-connection-399161.jpg");
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    padding-left: 20px;
+}
+
+form{
+    padding-left: 20px;
+}
+
+li{
+    padding-bottom: 10px;
+}
+
+hr{
+    margin-right: 600px;
+    color: #9291911a;
 }

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Question Display</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <h2>{{ story['title'] }}</h2>
@@ -10,8 +11,8 @@
         <thead>
             <td>ID</td>
             <td>Submission time</td>
-            <td>Number of view</td>
-            <td>Number of vote</td>
+            <td>Number of views</td>
+            <td>Number of votes</td>
         </thead>
         <tbody>
             <td>{{ story['id'] }}</td>
@@ -27,16 +28,25 @@
         <p>Image:</p>
         <p>{{ story['image'] }}</p>
     {% endif %}
-    <input type="submit" name="vote-button" value="Upvote">
-    <input type="submit" name="vote-button" value="Downvote">
+    <button type="submit" name="question-upvote" value="{{ story['id'] }}" formmethod="post"  formaction="/question/<question_id>/vote-up">Upvote</button>
+    <button type="submit" name="question-downvote" value="{{ story['id'] }}" formmethod="post" formaction="/question/<question_id>/vote-down">Downvote</button>
+    <a href= "/question/{{ story['id'] }}/delete" ><input type="button" value=Delete></a>
+    <hr style="margin-right: 600px;">
     <h3>Answers:</h3>
     <ul>
         {% for line in story_answer: %}
             {% if line['question_id'] == story['id'] %}
-                <li>{{ line['message'] }}</li>
+                <p>{{ line['message'] }}</p>
+                <p><button type="submit" name="answer-vote-button" value="Upvote" formmethod="post" formaction="/question/<question_id>/vote-up">Upvote</button>
+                    <button type="submit" name="answer-vote-button" value="Downvote" formmethod="post" formaction="/question/<question_id>/vote-down">Downvote</button></p>
+                <p>Vote number: {{ line['vote_number'] }}</p>
+                <hr style="margin-right: 600px">
             {% endif %}
         {% endfor %}
     </ul>
-    <a href="/question/{{story['id']}}/new-answer">Add a new answer</a>
+    <h3><a href="/question/{{story['id']}}/new-answer">Add a new answer</a></h3>
+
+
+
 </body>
 </html>
