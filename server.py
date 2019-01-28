@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, request, session, url_for
 import csv
-import time
+from datetime import datetime
 import functions
 
 app = Flask(__name__)
@@ -30,32 +30,26 @@ def new_answer(id=id):
                 story = line
     return render_template('new_answer.html', story=story)
 
-@app.route('/add-question')
-def route_add_question():
-    return render_template('add_question.html')
+
+@app.route('/question/<id>/delete')
+def delete_question(id):
+    functions.delete_answers_by_question_id(id)
+    functions.delete_question_by_question_id(id)
+    return redirect(url_for('route_list'))
 
 
 @app.route('/add-question', methods=['GET', 'POST'])
 def route_save_question():
+    if request.method == 'GET':
+        return render_template('add_question.html')
     if request.method == 'POST':
-        all_id = []
-        file = open('sample_data/question.csv')
-        csv_file = csv.reader(file)
-        for row in csv_file:
-            all_id.append(row[0])
-        last_id = all_id[-1]
-        id = int(last_id) + 1
-        submission_time = time.time()
+        submission_time = datetime.now()
         view_number = 0
         vote_number = 0
         title = request.form['title']
         message = request.form['message']
         image = ''
-        fieldnames = ['id', 'submission_time', 'view_number', 'vote_number', 'title', 'message', 'image']
-        with open('sample_data/question.csv', 'a') as csv_file:
-            writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-            writer.writerow({'id': id, 'submission_time': submission_time, 'view_number': view_number, 'vote_number': vote_number,
-                         'title': title, 'message': message, 'image': image})
+        functions.add_question(submission_time, view_number, vote_number, title, message, image)
         return redirect(url_for('route_list'))
 
 
