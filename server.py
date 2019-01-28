@@ -1,8 +1,15 @@
-from flask import Flask, render_template, redirect, request, session, url_for
+from flask import Flask, render_template, redirect, request, session, url_for, send_from_directory
 import csv
 import time
+import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+
+ALLOWED_EXTENSIONS = set(['jpg', 'jpeg', 'png'])
+UPLOAD_FOLDER = '/UPLOAD_FOLDER'
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -27,7 +34,7 @@ def route_question(id=None, story=None):
         vote_number=0
         question_id= id
         message = request.form['message']
-        image = ''
+        image = request.form['message']
         fieldnames = ['id', 'submission_time', 'vote_number', 'question_id', 'message', 'image']
         with open('sample_data/answer.csv', 'a') as csv_file:
             writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
@@ -39,13 +46,15 @@ def route_question(id=None, story=None):
         for line in data:
             if line['id'] == str(id):
                 story = line
-     #   if request.method == 'POST':
-      #      if request.form['vote-button'] == 'Upvote':
-         #   if request.form['vote-button'] == "Downvote":
     with open('sample_data/answer.csv', 'r') as file:
         answer_file = csv.DictReader(file)
         story_answer = list(answer_file)
     return render_template('question.html', story=story, story_answer=story_answer)
+
+
+@app.route('/question/<id>', methods=['GET', 'POST'])
+def pic_to_question():
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 
 @app.route("/question/<id>/new-answer")
@@ -63,6 +72,12 @@ def route_add_question():
     return render_template('add_question.html')
 
 
+@app.route('/add-question')
+def check_allowed_file(filename):
+    return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
 @app.route('/add-question', methods=['GET', 'POST'])
 def route_save_question():
     if request.method == 'POST':
@@ -78,13 +93,21 @@ def route_save_question():
         vote_number = 0
         title = request.form['title']
         message = request.form['message']
-        image = ''
+        image = request.form['image']
         fieldnames = ['id', 'submission_time', 'view_number', 'vote_number', 'title', 'message', 'image']
         with open('sample_data/question.csv', 'a') as csv_file:
             writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
             writer.writerow({'id': id, 'submission_time': submission_time, 'view_number': view_number, 'vote_number': vote_number,
                          'title': title, 'message': message, 'image': image})
-        return redirect(url_for('route_list'))
+
+
+@app.route('/add-question', methods=['POST'])
+def add_image():
+    image = request.files['image']
+    if image and check_allowed_file(image.filename):
+        filename = secure_filename(image.filename)
+        image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        return redirect(url_for('route_list', filename=filename))
 
 
 if __name__ == '__main__':
