@@ -41,3 +41,21 @@ hr{
     margin-right: 600px;
     color: #9291911a;
 }
+
+#question_massage{
+    padding-right: 600px;
+}
+
+table{
+    text-align: center;
+}
+
+td{
+    padding: 0px 20px;
+}
+
+thead{
+    text-decoration: underline;
+    font-size: 18px;
+    font-weight: bolder;
+}
