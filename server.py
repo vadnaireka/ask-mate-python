@@ -17,7 +17,8 @@ def route_question(id=id, ):
     answers = functions.display_answer(id)
     question_comments = functions.display_comment_for_question(id)
     answer_comments = functions.display_comment_for_answer()
-    return render_template('question.html', question=question, answers=answers, answer_comments=answer_comments, question_comments=question_comments)
+    return render_template('question.html', question=question, answers=answers, answer_comments=answer_comments,
+                           question_comments=question_comments)
 
 
 @app.route("/question/<id>/new-answer", methods=['GET', 'POST'])
@@ -73,7 +74,7 @@ def add_new_comment(question_id):
         functions.add_comment_to_question(question_id, message, submission_time, edited_count)
         return redirect(url_for('route_question', id=question_id))
 
-#FIXME
+
 @app.route('/question/<question_id>/<answer_id>/new_comment', methods=['GET', 'POST'])
 def add_comment_to_answer(question_id, answer_id):
     questions = functions.display_question(question_id)
@@ -87,12 +88,13 @@ def add_comment_to_answer(question_id, answer_id):
         functions.add_comment_to_answer(answer_id, message, submission_time, edited_count)
         return redirect(url_for('route_question', id=question_id, answer_id=answer_id))
 
+
 @app.route('/search', methods=['GET'])
 def search_question():
     search_phrase = request.args.get('search_phrase')
     search = ('%' + search_phrase + '%')
     search_data = functions.search_question(search)
-    search_answer= functions.search_answer(search)
+    search_answer = functions.search_answer(search)
     return render_template('search.html', data=search_data, answer_data=search_answer)
 
 
