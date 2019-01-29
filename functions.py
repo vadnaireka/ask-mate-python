@@ -80,3 +80,12 @@ def add_comment_to_answer(cursor, answer_id, message, submission_time, edited_co
                     insert into comment (answer_id, message, submission_time, edited_count)
                     values (%s, %s, %s, %s)
                     """,(answer_id, message, submission_time, edited_count))
+
+@database_common.connection_handler
+def search_question(search_phrase):
+    cursor.execute("""
+                    SELECT * FROM question
+                    where title like concat ('%', %(search_phrase)s, '%')
+                    """, {'search_phrase': search_phrase})
+    search_data = cursor.fetchall()
+    return search_data
