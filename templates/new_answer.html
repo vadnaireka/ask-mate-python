@@ -6,9 +6,9 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <h2>{{ story['title'] }}</h2>
-    <p>{{ story['message'] }}</p>
-    <form action= '/question/{{story['id']}}' method="POST">
+    <h2>{{ id['title'] }}</h2>
+    <p>{{ id['message'] }}</p>
+    <form action= '/question/{{id['id']}}' method="POST">
         <p>
             <label for="message">Answer:</label><br>
             <textarea name="message" rows="5" cols="100" minlength="10" placeholder="Please enter your answer here..." required></textarea>
