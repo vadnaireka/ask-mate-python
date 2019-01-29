@@ -39,6 +39,16 @@ def display_question(cursor, id):
 
 
 @database_common.connection_handler
+def display_comment(cursor, id):
+    cursor.execute("""
+                    SELECT * FROM comment
+                    where question_id = %s
+                    """, id)
+    comment_data = cursor.fetchall()
+    return comment_data
+
+
+@database_common.connection_handler
 def display_answer(cursor, id):
     cursor.execute("""
                     SELECT * FROM answer
@@ -56,4 +66,17 @@ def add_question(cursor, submission_time, view_number, vote_number, title, messa
                     """, (submission_time, view_number, vote_number, title, message, image))
 
 
+@database_common.connection_handler
+def add_comment_to_question(cursor, question_id, message, submission_time, edited_count):
+    cursor.execute("""
+                    insert into comment (question_id, message, submission_time, edited_count)
+                    values (%s, %s, %s, %s)
+                    """,(question_id, message, submission_time, edited_count))
 
+
+@database_common.connection_handler
+def add_comment_to_answer(cursor, answer_id, message, submission_time, edited_count):
+    cursor.execute("""
+                    insert into comment (answer_id, message, submission_time, edited_count)
+                    values (%s, %s, %s, %s)
+                    """,(answer_id, message, submission_time, edited_count))
