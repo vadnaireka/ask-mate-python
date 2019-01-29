@@ -14,7 +14,12 @@
     </form>
     <ul>
         {% for question in data: %}
-        <li><a href= "/question/{{ question.id }}">{{ question.title }}</a></li>
+            <li>
+                <a href= "/question/{{ question.id }}">{{ question.title }}</a></br>
+                Votes: {{ question.vote_number }}
+                Submission time: {{ question.submission_time }}
+                Views: Submission time: {{ question.view_number }}
+            </li>
         {% endfor %}
     </ul>
 </body>

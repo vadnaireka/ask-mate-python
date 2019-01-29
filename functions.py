@@ -27,7 +27,7 @@ def delete_question_by_question_id(cursor, id):
 @database_common.connection_handler
 def list_questions(cursor):
     cursor.execute("""
-                    SELECT title, id FROM question
+                    SELECT * FROM question
                     """)
     data = cursor.fetchall()
     return data
