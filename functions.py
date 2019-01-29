@@ -1,9 +1,17 @@
-import csv
 import database_common
 
 fieldnames_question = ['id', 'submission_time', 'view_number', 'vote_number', 'title', 'message', 'image']
 fieldnames_answer = ['id', 'submission_time', 'vote_number', 'question_id', 'message', 'image']
 
+@database_common.connection_handler
+def new_answer(cursor, id):
+    cursor.execute("""
+                   SELECT title, message FROM question
+                   WHERE id=;
+                    """,
+                   )
+    names = cursor.fetchall()
+    return names
 
 @database_common.connection_handler
 def delete_answers_by_question_id(cursor, id):
