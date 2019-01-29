@@ -7,10 +7,10 @@
 </head>
 <body>
     <h1>Ask Mate</h1>
-    <a href="/add-question">Add new Question</a>
+    <a href= {{ url_for('route_save_question') }}>Add new Question</a>
     <ul>
-        {% for line in data: %}
-        <li><a href="/question/{{ line['id'] }}">{{ line['title'] }}</a></li>
+        {% for question in data: %}
+        <li><a href= "/question/{{ question.id }}">{{ question.title }}</a></li>
         {% endfor %}
     </ul>
 </body>
