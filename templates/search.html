@@ -3,10 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Search result</title>
+    <link rel="stylesheet" href="static/style.css">
+
 </head>
 <body>
+    <p> Results in questions:
     {% for result in data %}
-        {{ result.title }}
+        <li><a href= "/question/{{ result.id }}">{{ result.title }}</a></li>
     {% endfor %}
+    </p>
+    <p>Results in answers:
+    {% for result in answer_data %}
+        <li><a href= "/question/{{ result.id }}">{{ result.message }}</a></li>
+    {% endfor %}
+    </p>
 </body>
 </html>
