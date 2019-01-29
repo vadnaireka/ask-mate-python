@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Answer</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    {% for question in questions %}
+    <h2>{{ question['title'] }}</h2>
+    <p>{{ question['message'] }}</p>
+    <form action= '/question/{{question['id']}}/new_comment/' method="POST">
+        {% endfor %}
+        <p>
+            <label for="comment">Answer:</label><br>
+            <textarea name="comment" rows="5" cols="100" minlength="10" placeholder="Please enter your comment here..." formmethod="post" required></textarea>
+        </p>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
