@@ -2,18 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>New Answer</title>
+    <title> Add New Answer</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <h2>{{ id['title'] }}</h2>
-    <p>{{ id['message'] }}</p>
-    <form action= '/question/{{id['id']}}' method="POST">
+    <p>{{ question['id'] }}</p>
+    <h2>{{ question['title'] }}</h2>
+    <p>{{ question['message'] }}</p>
+    <form action={{ url_for('route_new_answer', id=question['id']) }} method="POST">
         <p>
             <label for="message">Answer:</label><br>
             <textarea name="message" rows="5" cols="100" minlength="10" placeholder="Please enter your answer here..." required></textarea>
         </p>
+        <p>
+            <label for="image">Upload image:</label><br>
+            <textarea name="image" rows="1" cols="50"></textarea>
+        </p>
         <button type="submit">Submit</button>
     </form>
 </body>
+{% include 'footer.html' %}
 </html>
