@@ -55,3 +55,5 @@ def add_question(cursor, submission_time, view_number, vote_number, title, messa
                     values (%s, %s, %s, %s, %s, %s)
                     """, (submission_time, view_number, vote_number, title, message, image))
 
+
+
