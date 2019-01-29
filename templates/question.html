@@ -27,7 +27,7 @@
         </tbody>
     </table>
     <h3>Message:</h3>
-    <p id="question_massage">{{ question['message'] }}</p>
+    <p id="question_message">{{ question['message'] }}</p>
     {% if question['image']: %}
         <p>Image:</p>
         <p>{{ question['image'] }}</p>
@@ -78,4 +78,5 @@
     <h3><a href="/question/{{ question['id'] }}/new-answer">Add a new answer</a></h3>
 {% endfor %}
 </body>
+{% include 'footer.html' %}
 </html>

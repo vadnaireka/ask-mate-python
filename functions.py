@@ -1,8 +1,13 @@
-import csv
 import database_common
 
-fieldnames_question = ['id', 'submission_time', 'view_number', 'vote_number', 'title', 'message', 'image']
-fieldnames_answer = ['id', 'submission_time', 'vote_number', 'question_id', 'message', 'image']
+
+
+@database_common.connection_handler
+def add_answer(cursor, submission_time, vote_number, question_id, message, image):
+    cursor.execute("""
+                    insert into answer (submission_time, vote_number, question_id, message, image)
+                    values (%s, %s, %s, %s, %s)
+                    """, (submission_time, vote_number, question_id, message, image))
 
 
 @database_common.connection_handler
@@ -22,7 +27,7 @@ def delete_question_by_question_id(cursor, id):
 @database_common.connection_handler
 def list_questions(cursor):
     cursor.execute("""
-                    SELECT title, id FROM question
+                    SELECT * FROM question
                     """)
     data = cursor.fetchall()
     return data
@@ -110,3 +115,22 @@ def add_comment_to_answer(cursor, answer_id, message, submission_time, edited_co
                     insert into comment (answer_id, message, submission_time, edited_count)
                     values (%s, %s, %s, %s)
                     """,(answer_id, message, submission_time, edited_count))
+
+@database_common.connection_handler
+def search_question(cursor, search):
+    cursor.execute("""
+                    SELECT * FROM question
+                    where title like %(search_phrase)s or message like %(search_phrase)s
+                    """, {'search_phrase': search})
+    search_data = cursor.fetchall()
+    return search_data
+
+
+@database_common.connection_handler
+def search_answer(cursor, search):
+    cursor.execute("""
+                    SELECT * FROM answer
+                    where message like %(search_phrase)s
+                    """, {'search_phrase': search})
+    search_data = cursor.fetchall()
+    return search_data
