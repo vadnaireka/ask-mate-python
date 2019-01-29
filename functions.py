@@ -82,7 +82,7 @@ def add_comment_to_answer(cursor, answer_id, message, submission_time, edited_co
                     """,(answer_id, message, submission_time, edited_count))
 
 @database_common.connection_handler
-def search_question(search_phrase):
+def search_question(cursor, search_phrase):
     cursor.execute("""
                     SELECT * FROM question
                     where title like concat ('%', %(search_phrase)s, '%')
