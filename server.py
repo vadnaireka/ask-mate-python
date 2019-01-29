@@ -14,11 +14,12 @@ def route_list():
 
 
 @app.route('/question/<id>', methods=['GET', 'POST'])
-def route_question(id=id, story=None):
-    questions = functions.display_question(id)
+def route_question(id=id, ):
+    question = functions.display_question(id)
     answers = functions.display_answer(id)
-    comments = functions.display_comment(id)
-    return render_template('question.html', questions=questions, answers=answers, comments=comments)
+    question_comments = functions.display_comment_for_question(id)
+    answer_comments = functions.display_comment_for_answer()
+    return render_template('question.html', question=question, answers=answers, answer_comments=answer_comments, question_comments=question_comments)
 
 
 @app.route("/question/<id>/new-answer")
@@ -63,24 +64,23 @@ def add_new_comment(question_id):
     if request.method == 'POST':
         message = request.form['comment']
         submission_time = datetime.now()
-        edited_count=0
+        edited_count = 0
         functions.add_comment_to_question(question_id, message, submission_time, edited_count)
         return redirect(url_for('route_question', id=question_id))
 
-#FIXME
+
 @app.route('/question/<question_id>/<answer_id>/new_comment', methods=['GET', 'POST'])
 def add_comment_to_answer(question_id, answer_id):
+    questions = functions.display_question(question_id)
+    answers = functions.display_answer_by_id(answer_id)
     if request.method == 'GET':
-        questions = functions.display_question(question_id)
-        answers = functions.display_answer(question_id)
         return render_template('new_comment_to_answer.html', questions=questions, answers=answers)
     if request.method == 'POST':
         message = request.form['comment']
         submission_time = datetime.now()
         edited_count = 0
         functions.add_comment_to_answer(answer_id, message, submission_time, edited_count)
-        return redirect(url_for('route_question', id=question_id))
-
+        return redirect(url_for('route_question', id=question_id, answer_id=answer_id))
 
 
 if __name__ == '__main__':
