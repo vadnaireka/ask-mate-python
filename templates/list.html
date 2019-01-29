@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Ask Mate</title>
@@ -8,9 +8,18 @@
 <body>
     <h1>Ask Mate</h1>
     <a href= {{ url_for('route_save_question') }}>Add new Question</a>
+    <form action=/search method="get">
+        <input name="search_phrase">
+        <input type="submit" value="Search">
+    </form>
     <ul>
         {% for question in data: %}
-        <li><a href= "/question/{{ question.id }}">{{ question.title }}</a></li>
+            <li>
+                <a href= "/question/{{ question.id }}">{{ question.title }}</a></br>
+                Votes: {{ question.vote_number }}
+                Submission time: {{ question.submission_time }}
+                Views: Submission time: {{ question.view_number }}
+            </li>
         {% endfor %}
     </ul>
 </body>

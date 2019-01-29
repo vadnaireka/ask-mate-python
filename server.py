@@ -72,7 +72,7 @@ def add_new_comment(question_id):
         functions.add_comment_to_question(question_id, message, submission_time, edited_count)
         return redirect(url_for('route_question', id=question_id))
 
-#FIXME
+
 @app.route('/question/<question_id>/<answer_id>/new_comment', methods=['GET', 'POST'])
 def add_comment_to_answer(question_id, answer_id):
     if request.method == 'GET':
@@ -86,6 +86,14 @@ def add_comment_to_answer(question_id, answer_id):
         functions.add_comment_to_answer(answer_id, message, submission_time, edited_count)
         return redirect(url_for('route_question', id=question_id))
 
+
+@app.route('/search', methods=['GET'])
+def search_question():
+    search_phrase = request.args.get('search_phrase')
+    search = ('%' + search_phrase + '%')
+    search_data = functions.search_question(search)
+    search_answer= functions.search_answer(search)
+    return render_template('search.html', data=search_data, answer_data=search_answer)
 
 
 if __name__ == '__main__':
