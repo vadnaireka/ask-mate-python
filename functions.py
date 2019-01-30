@@ -1,14 +1,17 @@
 import database_common
 
-
+fieldnames_question = ['id', 'submission_time', 'view_number', 'vote_number', 'title', 'message', 'image']
+fieldnames_answer = ['id', 'submission_time', 'vote_number', 'question_id', 'message', 'image']
 
 @database_common.connection_handler
-def add_answer(cursor, submission_time, vote_number, question_id, message, image):
+def new_answer(cursor, id):
     cursor.execute("""
-                    insert into answer (submission_time, vote_number, question_id, message, image)
-                    values (%s, %s, %s, %s, %s)
-                    """, (submission_time, vote_number, question_id, message, image))
-
+                   SELECT title, message FROM question
+                   WHERE id=;
+                    """,
+                   )
+    names = cursor.fetchall()
+    return names
 
 @database_common.connection_handler
 def delete_answers_by_question_id(cursor, id):
@@ -64,11 +67,41 @@ def display_comment(cursor, id):
 
 
 @database_common.connection_handler
+def display_comment_for_answer(cursor):
+    cursor.execute("""
+                    SELECT * FROM comment
+                    where answer_id is not null
+                    """)
+    comment_data = cursor.fetchall()
+    return comment_data
+
+
+@database_common.connection_handler
+def display_comment_for_question(cursor, id):
+    cursor.execute("""
+                    SELECT * FROM comment
+                    where question_id = %s
+                    """, id)
+    comment_data = cursor.fetchall()
+    return comment_data
+
+
+@database_common.connection_handler
 def display_answer(cursor, id):
     cursor.execute("""
                     SELECT * FROM answer
                     where question_id = %s
                     """, id)
+    answer_data = cursor.fetchall()
+    return answer_data
+
+
+@database_common.connection_handler
+def display_answer_by_id(cursor, id):
+    cursor.execute("""
+                    SELECT * FROM answer
+                    where id = %(id)s
+                    """, {'id' : id})
     answer_data = cursor.fetchall()
     return answer_data
 

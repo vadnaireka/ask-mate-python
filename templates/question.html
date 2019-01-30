@@ -7,7 +7,7 @@
 </head>
 <body>
 <div id="story"></div>
-{% for question in questions %}
+{% for question in question %}
     <h2>{{ question.title }}</h2>
 
     <table>
@@ -32,11 +32,11 @@
         <p>Image:</p>
         <p>{{ question['image'] }}</p>
     {% endif %}
-    <h4>Comments:</h4>
+    <h4>Question comments:</h4>
     <h5>
-    {% for comment in comments %}
-        <p>{{ comment.message }}</p>
-    {% endfor %}
+        {% for question_comment in question_comments %}
+            <p>{{ question_comment['message'] }}</p>
+        {% endfor %}
     </h5>
     <button type="submit" name="question-upvote" value="{{ question['id'] }}" formmethod="post"
             formaction="/question/<question_id>/vote-up">Upvote
@@ -45,13 +45,20 @@
             formaction="/question/<question_id>/vote-down">Downvote
     </button>
     <a href="/question/{{ question['id'] }}/delete"><input type="button" value=Delete></a>
-    <a href="/question/{{ question['id'] }}/new_comment"><input type="button" value="Add comment"></a>
+    <a href="/question/{{ question['id'] }}/new_comment"><input type="button" value="Add comment to question"></a>
     <hr style="margin-right: 600px;">
     <h3>Answers:</h3>
     <ul>
-
         {% for answer in answers %}
             <p>{{ answer['message'] }}</p>
+            <h5>Comments:</h5>
+            {% for answer_comment in answer_comments %}
+                {% if answer['id'] == answer_comment['answer_id'] %}
+                    <h6>
+                        <p>{{ answer_comment['message'] }}</p>
+                    </h6>
+                {% endif %}
+            {% endfor %}
             <p>
                 <button type="submit" name="answer-vote-button" value="Upvote" formmethod="post"
                         formaction="/question/<question_id>/vote-up">Upvote
@@ -59,12 +66,14 @@
                 <button type="submit" name="answer-vote-button" value="Downvote" formmethod="post"
                         formaction="/question/<question_id>/vote-down">Downvote
                 </button>
-            <a href="/question/{{ question['id'] }}/{{ answer['id'] }}/new_comment"><input type="button" value="Add comment"></a>
+                <a href="/question/{{ question['id'] }}/{{ answer['id'] }}/new_comment"><input type="button"
+                                                                                               value="Add comment"></a>
             </p>
             <p>Vote number: {{ answer['vote_number'] }}</p>
             <hr style="margin-right: 600px">
 
         {% endfor %}
+
     </ul>
     <h3><a href="/question/{{ question['id'] }}/new-answer">Add a new answer</a></h3>
 {% endfor %}
