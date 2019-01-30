@@ -102,7 +102,7 @@ def search_question():
     search = ('%' + search_phrase + '%')
     search_data = functions.search_question(search)
     search_answer = functions.search_answer(search)
-    return render_template('search.html', data=search_data, answer_data=search_answer)
+    return render_template('search.html', data=search_data, answer_data=search_answer, search_phrase=search_phrase)
 
 
 @app.route('/answer/<answer_id>/edit', methods=['GET', 'POST'])

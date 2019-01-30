@@ -10,8 +10,9 @@
 <h1>Ask Mate</h1>
     <p> Results in questions:
     {% for result in data %}
-        <span class="highlight">{{ result }}</span>
-        <li><a href= "/question/{{ result.id }}">{{ result.title }}</a></li>
+        <li>
+            <a href= "/question/{{ result.id }}">{{ result.title}}</a>
+        </li>
     {% endfor %}
     </p>
     <p>Results in answers:
@@ -20,4 +21,7 @@
     {% endfor %}
     </p>
 </body>
+{% include 'footer.html' %}
 </html>
+
+
