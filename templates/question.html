@@ -95,9 +95,13 @@
                 {% if answer['id'] == answer_comment['answer_id'] %}
                     <h6>
                         <p>{{ answer_comment['message'] }}
-
+                            <a href="/comments/{{ answer_comment['id'] }}/edit/{{ question['id'] }}"><i
+                                    class="far fa-edit"
+                                    style="color: black"></i></a>
+                            <a href="/comments/{{ answer_comment['id'] }}/delete/{{ question['id'] }}"><i
+                                    class="fas fa-trash-alt"
+                                    style="color: black"></i></a>
                         </p>
-
                     </h6>
                 {% endif %}
             {% endfor %}

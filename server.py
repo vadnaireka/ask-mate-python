@@ -105,7 +105,7 @@ def search_question():
     return render_template('search.html', data=search_data, answer_data=search_answer)
 
 
-@app.route('/answer/<answer_id>/edit', methods=['GET', 'POST'])
+@app.route('/answer/<answer_id>/edit/', methods=['GET', 'POST'])
 def edit_answer(answer_id):
     if request.method == 'GET':
         answers = functions.display_answer_by_id(answer_id)
