@@ -14,8 +14,16 @@ def route_list():
         order = request.form['order']
         data = functions.sort_questions(column, order)
     if request.method == 'GET':
-        data = functions.list_questions()
-    return render_template('list.html', data=data)
+        url = 'home'
+        data = functions.list_five_questions()
+    return render_template('list.html', data=data, url=url)
+
+
+@app.route('/list')
+def list_all_questions():
+    url = 'list'
+    data = functions.list_questions()
+    return render_template('list.html', data=data, url=url)
 
 
 @app.route('/question/<id>', methods=['GET', 'POST'])

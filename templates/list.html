@@ -36,6 +36,12 @@
                 </table>
             </li>
         {% endfor %}
+        {% if url == 'home' %}
+            <a href="{{ url_for('list_all_questions') }}"><i class="fas fa-arrows-alt-v"></i></a>
+        {% elif url == 'list' %}
+            <a href="{{ url_for('route_list') }}"><i class="fas fa-arrows-alt-v"></i></a>
+        {% endif %}
+
     </ul>
 </body>
 </html>
