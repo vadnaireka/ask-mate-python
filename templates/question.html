@@ -69,6 +69,7 @@
                 {% if answer['id'] == answer_comment['answer_id'] %}
                     <h6>
                         <p>{{ answer_comment['message'] }}
+                            <a href="/question/{{ question['id'] }}/{{ answer['id'] }}/new_comment"><i class="far fa-plus-square" style="color: black"></i></a></p>
                         <p>
                             <button
                             <i class="fas fa-angle-down" type="submit" name="answer-vote-button" value="Upvote"
@@ -80,10 +81,8 @@
                                        formaction="/question/<question_id>/vote-down"></i>
                             </button>
 
-                            <a href="/answer/{{ answer['id'] }}/edit"><i class="far fa-edit"
-                                                                         style="color: black"></i></a>
-                            <a href="/answer/{{ answer['id'] }}/delete"><i class="fas fa-trash-alt"
-                                                                           style="color: black"></i></a>
+                            <a href="/answer/{{ answer['id'] }}/edit"><i class="far fa-edit" style="color: black"></i></a>
+                            <a href="/answer/{{ answer['id'] }}/delete"><i class="fas fa-trash-alt" style="color: black"></i></a>
                         </p>
                         </p>
                     </h6>
