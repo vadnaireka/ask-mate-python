@@ -39,11 +39,28 @@ def delete_answer_by_answer_id(cursor, id):
 
 
 @database_common.connection_handler
+def delete_comment_by_question_id(cursor, id):
+    cursor.execute("""
+                    delete from comment
+                    where  id = %s;  
+                    """, id)
+
+
+@database_common.connection_handler
+def delete_question_tag_by_question_id(cursor, id):
+    cursor.execute("""
+                    delete from question_tag
+                    where  id = %s;  
+                    """, id)
+
+
+@database_common.connection_handler
 def delete_question_by_question_id(cursor, id):
     cursor.execute("""
                     delete from question
                     where  id = %s;  
                     """, id)
+
 
 @database_common.connection_handler
 def list_questions(cursor):
@@ -80,8 +97,8 @@ def sort_questions(cursor, column, order):
 def display_question(cursor, id):
     cursor.execute("""
                     SELECT * FROM question
-                    where id = %s
-                    """, id)
+                    where id = %(id)s
+                    """, {'id': id})
     question_data = cursor.fetchall()
     return question_data
 

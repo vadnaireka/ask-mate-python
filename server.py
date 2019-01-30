@@ -56,8 +56,10 @@ def route_new_answer(id):
 
 @app.route('/question/<id>/delete')
 def delete_question(id):
+    functions.delete_comment_by_question_id(id)
     functions.delete_answers_by_question_id(id)
     functions.delete_question_by_question_id(id)
+    functions.delete_question_tag_by_question_id(id)
     return redirect(url_for('route_list'))
 
 
@@ -140,7 +142,7 @@ def edit_answer(answer_id, question_id):
 def edit_comment(comment_id):
     if request.method == 'GET':
         comment = functions.get_comment_before_edit(comment_id)
-        return render_template('edit_answer.html', comment=comment)
+        return render_template('edit_comment.html', comment=comment)
     if request.method == 'POST':
         updated_message = request.form['message']
         functions.update_comment(comment_id, updated_message)
