@@ -20,20 +20,7 @@
         <td>Number of views</td>
         <td>Number of votes</td>
         <td>Image</td>
-        <td>
-            <button>
-                <i class="fas fa-angle-down" type="submit" name="question-upvote" value="{{ question['id'] }}"
-                   formmethod="post"
-                   formaction="/question/<question_id>/vote-up"></i>
-            </button>
-        </td>
-        <td>
-            <button>
-                <i class="fas fa-angle-up" type="submit" name="question-downvote" value="{{ question['id'] }}"
-                   formmethod="post"
-                   formaction="/question/<question_id>/vote-down"></i>
-            </button>
-        </td>
+        <td>Vote</td>
         <td>
             <a href="/question/{{ question['id'] }}/delete"><i class="fas fa-trash-alt" style="color: black"></i></a>
         </td>
@@ -44,6 +31,19 @@
         <td>{{ question['view_number'] }}</td>
         <td>{{ question['vote_number'] }}</td>
         <td>{{ question['image'] }}</td>
+        <td>
+            <button>
+                <i class="fas fa-angle-down" type="submit" name="question-upvote" value="{{ question['id'] }}"
+                   formmethod="post"
+                   formaction="/question/<question_id>/vote-up"></i>
+            </button>
+
+            <button>
+                <i class="fas fa-angle-up" type="submit" name="question-downvote" value="{{ question['id'] }}"
+                   formmethod="post"
+                   formaction="/question/<question_id>/vote-down"></i>
+            </button>
+        </td>
         </tbody>
     </table>
     <h3>Message:</h3>
@@ -117,7 +117,3 @@
 </body>
 {% include 'footer.html' %}
 </html>
-
-
-
-
