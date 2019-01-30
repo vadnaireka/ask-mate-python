@@ -52,7 +52,8 @@
         <h4>Question comments:<a href="/question/{{ question['id'] }}/new_comment"><i class="far fa-plus-square" style="color: whitesmoke"></i></a></h4>
         <h5>
             {% for question_comment in question_comments %}
-                <p id="question_comment">{{ question_comment['message'] }}
+                <p id="question_comment">{{ question_comment['message'] }}<br>
+                    {{ question_comment['submission_time'] }}
                     <a href="/comments/{{ question_comment['id'] }}/edit/"><i class="far fa-edit"
                                                                                                   style="color: whitesmoke"></i></a>
                     <a href="/comments/{{ question_comment['id'] }}/delete/{{ question['id'] }}"><i class="fas fa-trash-alt"
@@ -92,7 +93,8 @@
             {% for answer_comment in answer_comments %}
                 {% if answer['id'] == answer_comment['answer_id'] %}
                     <h6>
-                        <p>{{ answer_comment['message'] }}
+                        <p>{{ answer_comment['message'] }}<br>
+                            {{ answer_comment['submission_time'] }}
                             <a href="/comments/{{ answer_comment['id'] }}/edit"><i
                                     class="far fa-edit"
                                     style="color: black"></i></a>
