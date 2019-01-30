@@ -16,6 +16,7 @@
         <label for="message">Comment:</label><br>
         <textarea name="message" rows="5" cols="100" minlength="10" required>{{comment['message']}}</textarea><br>
     </p>
+        Edited {{comment['edited_count']}} times.
         {% endfor %}
 <button type="Update">Submit</button>
 </form>

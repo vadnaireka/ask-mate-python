@@ -145,7 +145,8 @@ def edit_comment(comment_id):
         return render_template('edit_comment.html', comment=comment)
     if request.method == 'POST':
         updated_message = request.form['message']
-        functions.update_comment(comment_id, updated_message)
+        submission_time = datetime.now()
+        functions.update_comment(comment_id, updated_message, submission_time)
         return redirect(url_for('route_list'))
 
 

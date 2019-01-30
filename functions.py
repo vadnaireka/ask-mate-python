@@ -232,10 +232,10 @@ def get_comment_before_edit(cursor, id):
 
 
 @database_common.connection_handler
-def update_comment(cursor, comment_id, updated_message):
+def update_comment(cursor, comment_id, updated_message, submission_time):
     cursor.execute("""
                     UPDATE comment
-                    SET message = %s
+                    SET message = %s, submission_time=%s, edited_count = (edited_count+1)
                     WHERE id = %s
-                    """, (updated_message, comment_id))
+                    """, (updated_message, submission_time, comment_id))
 
