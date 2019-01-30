@@ -85,6 +85,7 @@ thead{
     left:50px
 }
 
-.highlight{
-    background-color:#FFFF00
+#answer_image{
+    font-weight: bold;
+    font-size: smaller;
 }
