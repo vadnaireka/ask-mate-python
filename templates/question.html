@@ -66,8 +66,8 @@
                 <button type="submit" name="answer-vote-button" value="Downvote" formmethod="post"
                         formaction="/question/<question_id>/vote-down">Downvote
                 </button>
-                <a href="/question/{{ question['id'] }}/{{ answer['id'] }}/new_comment"><input type="button"
-                                                                                               value="Add comment"></a>
+            <a href="/question/{{ question['id'] }}/{{ answer['id'] }}/new_comment"><input type="button" value="Add comment"></a>
+            <a href="/answer/{{ answer['id'] }}/edit"><input type="button" value="Edit"></a>
             </p>
             <p>Vote number: {{ answer['vote_number'] }}</p>
             <hr style="margin-right: 600px">
