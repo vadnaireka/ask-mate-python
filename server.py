@@ -7,7 +7,12 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def route_list():
-    data = functions.list_questions()
+    if request.method == 'POST':
+        column = request.form['column']
+        order = request.form['order']
+        data = functions.sort_questions(column, order)
+    if request.method == 'GET':
+        data = functions.list_questions()
     return render_template('list.html', data=data)
 
 

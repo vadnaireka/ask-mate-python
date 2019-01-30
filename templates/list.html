@@ -12,7 +12,18 @@
         <input name="search_phrase">
         <input type="submit" value="Search">
     </form>
-    <ul id="list_question">
+    <form id="sort" action="/" method="post">
+        <select name="column">
+            <option value="title">Title</option>
+            <option value="submission_time">Submission Time</option>
+            <option value="view_number">View Number</option>
+            <option value="vote_number">Vote Number</option>
+        </select>
+        <input type="radio" name="order" value="asc">ascendant
+        <input type="radio" name="order" value="desc">decrescent
+        <input type="submit" value="Sort">
+    </form>
+    <ul id="list_question" style="list-style-type:none;">
         {% for question in data: %}
             <li>
                 <a href= "/question/{{ question.id }}">{{ question.title }}</a></br>
