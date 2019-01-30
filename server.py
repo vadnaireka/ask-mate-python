@@ -87,6 +87,14 @@ def add_comment_to_answer(question_id, answer_id):
         return redirect(url_for('route_question', id=question_id))
 
 
+@app.route('/answer/<answer_id>/edit', methods=['GET', 'POST'])
+def edit_answer(answer_id):
+    if request.method == 'GET':
+        answers = functions.display_answer(answer_id)
+        answer = answers[0]
+        return render_template('edit_answer.html', answer=answer)
+
+
 
 if __name__ == '__main__':
     app.run(
