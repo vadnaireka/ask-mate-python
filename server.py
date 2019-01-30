@@ -111,6 +111,14 @@ def edit_answer(answer_id):
         answers = functions.display_answer_by_id(answer_id)
         answer = answers[0]
         return render_template('edit_answer.html', answer=answer)
+    if request.method == 'POST':
+        updated_message = request.form['message']
+        updated_image = request.form['image']
+        answers = functions.display_answer_by_id(answer_id)
+        answer = answers[0]
+        answer_id = answer['id']
+        functions.update_answer(answer_id, updated_message, updated_image)
+        return redirect(url_for('route_list'))
 
 
 @app.route('/comments/<comment_id>/delete/<question_id>', methods=['GET', 'POST'])

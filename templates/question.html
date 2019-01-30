@@ -55,6 +55,7 @@
     <ul>
         {% for answer in answers %}
             <p>{{ answer['message'] }}</p>
+            <div id="answer_image"><p>Image: {{ answer['image'] }}</p></div>
             <h5>Comments:</h5>
             {% for answer_comment in answer_comments %}
                 {% if answer['id'] == answer_comment['answer_id'] %}

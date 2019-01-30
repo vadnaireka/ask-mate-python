@@ -86,3 +86,7 @@ thead{
     left:50px
 }
 
+#answer_image{
+    font-weight: bold;
+    font-size: smaller;
+}
