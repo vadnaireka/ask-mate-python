@@ -18,7 +18,7 @@ def new_answer(cursor, id):
 def delete_answers_by_question_id(cursor, id):
     cursor.execute("""
                     delete from answer
-                    where  question_id = %s;  
+                    where  id = %s;  
                     """, id)
 
 @database_common.connection_handler

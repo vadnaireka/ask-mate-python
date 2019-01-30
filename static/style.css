@@ -13,11 +13,15 @@ h2{
     padding-left: 20px;
     padding-top: 30px;
     text-decoration: underline;
+}
 
+h4{
+    padding-left: 20px;
 }
 
 h5{
-    color: darkgreen;
+    color: darkslategrey;
+    padding-left: 50px;
 }
 
 a{
@@ -89,17 +93,11 @@ thead{
     left:50px
 }
 
-<<<<<<< Updated upstream
 #answer_image{
     font-weight: bold;
     font-size: smaller;
-=======
-.highlight{
-    background-color:#FFFF00
-}
 
 #question_comment{
     padding-left: 40px;
     font-size: 17px;
->>>>>>> Stashed changes
 }

@@ -53,6 +53,12 @@ def delete_question(id):
     return redirect(url_for('route_list'))
 
 
+@app.route('/answer/<answer_id>/delete')
+def delete_answer(answer_id):
+    functions.delete_answers_by_question_id(answer_id)
+
+    return redirect(url_for('route_list'))
+
 @app.route('/add-question', methods=['GET', 'POST'])
 def route_save_question():
     if request.method == 'GET':
