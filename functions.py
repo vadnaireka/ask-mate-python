@@ -21,6 +21,23 @@ def delete_answers_by_question_id(cursor, id):
                     where  question_id = %s;  
                     """, id)
 
+
+@database_common.connection_handler
+def delete_answer_by_answer_id_from_comments(cursor, id):
+    cursor.execute("""
+                    delete from comment
+                    where  answer_id = %(id)s;  
+                    """, {'id':id})
+
+
+@database_common.connection_handler
+def delete_answer_by_answer_id(cursor, id):
+    cursor.execute("""
+                    delete from answer
+                    where  id = %(id)s;  
+                    """, {'id':id})
+
+
 @database_common.connection_handler
 def delete_question_by_question_id(cursor, id):
     cursor.execute("""
@@ -32,6 +49,18 @@ def delete_question_by_question_id(cursor, id):
 def list_questions(cursor):
     cursor.execute("""
                     SELECT * FROM question
+                    ORDER BY submission_time DESC
+                    """)
+    data = cursor.fetchall()
+    return data
+
+
+@database_common.connection_handler
+def list_five_questions(cursor):
+    cursor.execute("""
+                    SELECT * FROM question
+                    ORDER BY submission_time DESC 
+                    LIMIT 5;
                     """)
     data = cursor.fetchall()
     return data

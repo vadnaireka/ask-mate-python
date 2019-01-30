@@ -14,8 +14,16 @@ def route_list():
         order = request.form['order']
         data = functions.sort_questions(column, order)
     if request.method == 'GET':
-        data = functions.list_questions()
-    return render_template('list.html', data=data)
+        url = 'home'
+        data = functions.list_five_questions()
+    return render_template('list.html', data=data, url=url)
+
+
+@app.route('/list')
+def list_all_questions():
+    url = 'list'
+    data = functions.list_questions()
+    return render_template('list.html', data=data, url=url)
 
 
 @app.route('/question/<id>', methods=['GET', 'POST'])
@@ -51,6 +59,13 @@ def delete_question(id):
     functions.delete_answers_by_question_id(id)
     functions.delete_question_by_question_id(id)
     return redirect(url_for('route_list'))
+
+
+@app.route('/answer/<answer_id>/delete/<question_id>')
+def delete_answer(answer_id, question_id):
+    functions.delete_answer_by_answer_id_from_comments(answer_id)
+    functions.delete_answer_by_answer_id(answer_id)
+    return redirect(url_for('route_question', id=question_id))
 
 
 @app.route('/add-question', methods=['GET', 'POST'])
