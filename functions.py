@@ -57,11 +57,41 @@ def display_comment(cursor, id):
 
 
 @database_common.connection_handler
+def display_comment_for_answer(cursor):
+    cursor.execute("""
+                    SELECT * FROM comment
+                    where answer_id is not null
+                    """)
+    comment_data = cursor.fetchall()
+    return comment_data
+
+
+@database_common.connection_handler
+def display_comment_for_question(cursor, id):
+    cursor.execute("""
+                    SELECT * FROM comment
+                    where question_id = %s
+                    """, id)
+    comment_data = cursor.fetchall()
+    return comment_data
+
+
+@database_common.connection_handler
 def display_answer(cursor, id):
     cursor.execute("""
                     SELECT * FROM answer
                     where question_id = %s
                     """, id)
+    answer_data = cursor.fetchall()
+    return answer_data
+
+
+@database_common.connection_handler
+def display_answer_by_id(cursor, id):
+    cursor.execute("""
+                    SELECT * FROM answer
+                    where id = %(id)s
+                    """, {'id' : id})
     answer_data = cursor.fetchall()
     return answer_data
 
