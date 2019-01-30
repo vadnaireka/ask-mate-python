@@ -27,6 +27,7 @@ body {
     background-repeat: no-repeat;
     background-size: 100%;
     padding-left: 20px;
+    .highlight{background-color:#FFFF00}
 }
 
 form{
