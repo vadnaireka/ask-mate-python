@@ -1,15 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Question Display</title>
     <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 <body>
 <div id="story"></div>
 {% for question in question %}
     <h2>{{ question.title }}</h2>
-
+<button type="submit" name="question-upvote" value="{{ question['id'] }}" formmethod="post"
+            formaction="/question/<question_id>/vote-up">Upvote
+    </button>
+    <button type="submit" name="question-downvote" value="{{ question['id'] }}" formmethod="post"
+            formaction="/question/<question_id>/vote-down">Downvote
+    </button>
+    <a href="/question/{{ question['id'] }}/delete"><input type="button" value=Delete></a>
+    <a href="/question/{{ question['id'] }}/new_comment"><input type="button" value="Add comment to question"></a><br>
     <table>
         <thead>
         <td>ID</td>
@@ -27,7 +35,8 @@
         </tbody>
     </table>
     <h3>Message:</h3>
-    <p id="question_message">{{ question['message'] }}</p>
+    <p id="question_message">{{ question['message'] }}
+    </p>
     {% if question['image']: %}
         <p>Image:</p>
         <p>{{ question['image'] }}</p>
@@ -35,21 +44,12 @@
     <h4>Question comments:</h4>
     <h5>
         {% for question_comment in question_comments %}
-            <p>{{ question_comment['message'] }}</p>
-            <a href="/comments/{{ question_comment['id'] }}/edit/{{ question['id'] }}"><input type="button"
-                                                                                              value="Edit question comment"></a>
-            <a href="/comments/{{ question_comment['id'] }}/delete/{{ question['id'] }}"><input type="button"
-                                                                                                value="Delete question comment"></a>
+            <p>{{ question_comment['message'] }}
+            <a href="/comments/{{ question_comment['id'] }}/edit/{{ question['id'] }}"><i class="far fa-edit" style="color: black"></i></a>
+            <a href="/comments/{{ question_comment['id'] }}/delete/{{ question['id'] }}"><i class="fas fa-trash-alt" style="color: black"></i></a></p>
         {% endfor %}
     </h5>
-    <button type="submit" name="question-upvote" value="{{ question['id'] }}" formmethod="post"
-            formaction="/question/<question_id>/vote-up">Upvote
-    </button>
-    <button type="submit" name="question-downvote" value="{{ question['id'] }}" formmethod="post"
-            formaction="/question/<question_id>/vote-down">Downvote
-    </button>
-    <a href="/question/{{ question['id'] }}/delete"><input type="button" value=Delete></a>
-    <a href="/question/{{ question['id'] }}/new_comment"><input type="button" value="Add comment to question"></a>
+
     <hr style="margin-right: 600px;">
     <h3>Answers:</h3>
     <ul>
@@ -70,8 +70,9 @@
                 <button type="submit" name="answer-vote-button" value="Downvote" formmethod="post"
                         formaction="/question/<question_id>/vote-down">Downvote
                 </button>
-            <a href="/question/{{ question['id'] }}/{{ answer['id'] }}/new_comment"><input type="button" value="Add comment"></a>
-            <a href="/answer/{{ answer['id'] }}/edit"><input type="button" value="Edit"></a>
+                <a href="/question/{{ question['id'] }}/{{ answer['id'] }}/new_comment"><input type="button"
+                                                                                               value="Add answer comment"></a>
+                <a href="/answer/{{ answer['id'] }}/edit"><input type="button" value="Edit answer comment"></a>
             </p>
             <p>Vote number: {{ answer['vote_number'] }}</p>
             <hr style="margin-right: 600px">
@@ -84,4 +85,7 @@
 </body>
 {% include 'footer.html' %}
 </html>
+
+
+
 
