@@ -18,8 +18,25 @@ def new_answer(cursor, id):
 def delete_answers_by_question_id(cursor, id):
     cursor.execute("""
                     delete from answer
-                    where  id = %s;  
+                    where  question_id = %s;  
                     """, id)
+
+
+@database_common.connection_handler
+def delete_answer_by_answer_id_from_comments(cursor, id):
+    cursor.execute("""
+                    delete from comment
+                    where  answer_id = %(id)s;  
+                    """, {'id':id})
+
+
+@database_common.connection_handler
+def delete_answer_by_answer_id(cursor, id):
+    cursor.execute("""
+                    delete from answer
+                    where  id = %(id)s;  
+                    """, {'id':id})
+
 
 @database_common.connection_handler
 def delete_question_by_question_id(cursor, id):

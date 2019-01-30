@@ -84,7 +84,7 @@
                     </button>
 
                     <a href="/answer/{{ answer['id'] }}/edit"><i class="far fa-edit" style="color: black"></i></a>
-                    <a href="/answer/{{ answer['id'] }}/delete"><i class="fas fa-trash-alt" style="color: black"></i></a>
+                    <a href="/answer/{{ answer['id'] }}/delete/{{ answer['question_id'] }}"><i class="fas fa-trash-alt" style="color: black"></i></a>
                 </p>
                 <h4>Comments:
                     <a href="/question/{{ question['id'] }}/{{ answer['id'] }}/new_comment"><i class="far fa-plus-square"
