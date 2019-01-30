@@ -13,6 +13,7 @@ def new_answer(cursor, id):
     names = cursor.fetchall()
     return names
 
+
 @database_common.connection_handler
 def delete_answers_by_question_id(cursor, id):
     cursor.execute("""
@@ -165,4 +166,11 @@ def delete_comment_from_database(cursor, id):
                     where  id = %(id)s
                     """, {'id': id})
 
+@database_common.connection_handler
+def update_answer(cursor, answer_id, updated_message, updated_image):
+    cursor.execute("""
+                    UPDATE answer
+                    SET message = %s, image = %s
+                    WHERE id = %s
+                    """, (updated_message, updated_image, answer_id));
 
