@@ -203,3 +203,22 @@ def update_answer(cursor, answer_id, updated_message, updated_image):
                     WHERE id = %s
                     """, (updated_message, updated_image, answer_id));
 
+
+@database_common.connection_handler
+def get_comment_before_edit(cursor, id):
+    cursor.execute("""
+                    SELECT * FROM comment
+                    where id = %(id)s
+                    """, {'id': id})
+    comment = cursor.fetchall()
+    return comment
+
+
+@database_common.connection_handler
+def update_comment(cursor, comment_id, updated_message):
+    cursor.execute("""
+                    UPDATE comment
+                    SET message = %s
+                    WHERE id = %s
+                    """, (updated_message, comment_id))
+

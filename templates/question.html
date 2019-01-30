@@ -53,7 +53,7 @@
         <h5>
             {% for question_comment in question_comments %}
                 <p id="question_comment">{{ question_comment['message'] }}
-                    <a href="/comments/{{ question_comment['id'] }}/edit/{{ question['id'] }}"><i class="far fa-edit"
+                    <a href="/comments/{{ question_comment['id'] }}/edit/"><i class="far fa-edit"
                                                                                                   style="color: whitesmoke"></i></a>
                     <a href="/comments/{{ question_comment['id'] }}/delete/{{ question['id'] }}"><i class="fas fa-trash-alt"
                                                                                                     style="color: whitesmoke"></i></a>
@@ -82,8 +82,8 @@
                                formaction="/question/<question_id>/vote-down" style="color: darkslategray"></i>
                     </button>
 
-                <a href="/answer/{{ answer['id'] }}/edit"><i class="far fa-edit" style="color: black"></i></a>
-                <a href="/answer/{{ answer['id'] }}/delete"><i class="fas fa-trash-alt" style="color: black"></i></a>
+                <a href="/answer/{{ answer['id'] }}/edit/{{ answer['question_id'] }}"><i class="far fa-edit" style="color: black"></i></a>
+                <a href="/answer/{{ answer['id'] }}/delete/{{ answer['question_id'] }}"><i class="fas fa-trash-alt" style="color: black"></i></a>
             </p>
             <h5>Comments:
                 <a href="/question/{{ question['id'] }}/{{ answer['id'] }}/new_comment"><i class="far fa-plus-square"
@@ -93,7 +93,7 @@
                 {% if answer['id'] == answer_comment['answer_id'] %}
                     <h6>
                         <p>{{ answer_comment['message'] }}
-                            <a href="/comments/{{ answer_comment['id'] }}/edit/{{ question['id'] }}"><i
+                            <a href="/comments/{{ answer_comment['id'] }}/edit"><i
                                     class="far fa-edit"
                                     style="color: black"></i></a>
                             <a href="/comments/{{ answer_comment['id'] }}/delete/{{ question['id'] }}"><i

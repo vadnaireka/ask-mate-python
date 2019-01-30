@@ -120,8 +120,8 @@ def search_question():
     return render_template('search.html', data=search_data, answer_data=search_answer, search_phrase=search_phrase)
 
 
-@app.route('/answer/<answer_id>/edit/', methods=['GET', 'POST'])
-def edit_answer(answer_id):
+@app.route('/answer/<answer_id>/edit/<question_id>', methods=['GET', 'POST'])
+def edit_answer(answer_id, question_id):
     if request.method == 'GET':
         answers = functions.display_answer_by_id(answer_id)
         answer = answers[0]
@@ -133,6 +133,17 @@ def edit_answer(answer_id):
         answer = answers[0]
         answer_id = answer['id']
         functions.update_answer(answer_id, updated_message, updated_image)
+        return redirect(url_for('route_question', id=question_id))
+
+
+@app.route('/comments/<comment_id>/edit/', methods=['GET', 'POST'])
+def edit_comment(comment_id):
+    if request.method == 'GET':
+        comment = functions.get_comment_before_edit(comment_id)
+        return render_template('edit_answer.html', comment=comment)
+    if request.method == 'POST':
+        updated_message = request.form['message']
+        functions.update_comment(comment_id, updated_message)
         return redirect(url_for('route_list'))
 
 
