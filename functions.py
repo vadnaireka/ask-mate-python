@@ -34,6 +34,16 @@ def list_questions(cursor):
 
 
 @database_common.connection_handler
+def sort_questions(cursor, column, order):
+    cursor.execute("""
+                    SELECT * FROM question
+                    order by %(column)s %(order)s
+                    """, {'column': column, 'order': order})
+    data = cursor.fetchall()
+    return data
+
+
+@database_common.connection_handler
 def display_question(cursor, id):
     cursor.execute("""
                     SELECT * FROM question
