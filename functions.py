@@ -32,6 +32,18 @@ def delete_question_by_question_id(cursor, id):
 def list_questions(cursor):
     cursor.execute("""
                     SELECT * FROM question
+                    ORDER BY submission_time DESC
+                    """)
+    data = cursor.fetchall()
+    return data
+
+
+@database_common.connection_handler
+def list_five_questions(cursor):
+    cursor.execute("""
+                    SELECT * FROM question
+                    ORDER BY submission_time DESC 
+                    LIMIT 5;
                     """)
     data = cursor.fetchall()
     return data
