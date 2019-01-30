@@ -11,16 +11,8 @@
 <div id="story"></div>
 {% for question in question %}
     <h2>{{ question.title }}</h2>
-    <button>
-    <i class="fas fa-angle-down" type="submit" name="question-upvote" value="{{ question['id'] }}" formmethod="post"
-       formaction="/question/<question_id>/vote-up"></i>
-    </button>
-    <button>
-    <i class="fas fa-angle-up" type="submit" name="question-downvote" value="{{ question['id'] }}" formmethod="post"
-       formaction="/question/<question_id>/vote-down"></i>
-    </button>
-    <a href="/question/{{ question['id'] }}/delete"><i class="fas fa-trash-alt" style="color: black"></i></a>
-    <a href="/question/{{ question['id'] }}/new_comment"><i class="far fa-plus-square" style="color: black"></i></a>
+
+
     <table>
         <thead>
         <td>ID</td>
@@ -28,6 +20,10 @@
         <td>Number of views</td>
         <td>Number of votes</td>
         <td>Image</td>
+        <td>Vote</td>
+        <td>
+            <a href="/question/{{ question['id'] }}/delete"><i class="fas fa-trash-alt" style="color: black"></i></a>
+        </td>
         </thead>
         <tbody>
         <td>{{ question.id }}</td>
@@ -35,6 +31,19 @@
         <td>{{ question['view_number'] }}</td>
         <td>{{ question['vote_number'] }}</td>
         <td>{{ question['image'] }}</td>
+        <td>
+            <button>
+                <i class="fas fa-angle-down" type="submit" name="question-upvote" value="{{ question['id'] }}"
+                   formmethod="post"
+                   formaction="/question/<question_id>/vote-up"></i>
+            </button>
+
+            <button>
+                <i class="fas fa-angle-up" type="submit" name="question-downvote" value="{{ question['id'] }}"
+                   formmethod="post"
+                   formaction="/question/<question_id>/vote-down"></i>
+            </button>
+        </td>
         </tbody>
     </table>
     <h3>Message:</h3>
@@ -44,7 +53,8 @@
         <p>Image:</p>
         <p>{{ question['image'] }}</p>
     {% endif %}
-    <h4>Question comments:</h4>
+    <h4>Question comments:<a href="/question/{{ question['id'] }}/new_comment"><i class="far fa-plus-square"
+                                                                                  style="color: black"></i></a></h4>
     <h5>
         {% for question_comment in question_comments %}
             <p>{{ question_comment['message'] }}
@@ -57,10 +67,26 @@
     </h5>
 
     <hr style="margin-right: 600px;">
-    <h3>Answers:</h3>
+    <h3>Answers:
+    <a href="/question/{{ question['id'] }}/new-answer"><i class="far fa-plus-square" style="color: black"></i></a></h4>
+
     <ul>
         {% for answer in answers %}
             <p>{{ answer['message'] }}</p>
+            <p>
+                <button
+                <i class="fas fa-angle-down" type="submit" name="answer-vote-button" value="Upvote"
+                   formmethod="post"
+                   formaction="/question/<question_id>/vote-up"></i>
+                </button>
+                <button><i class="fas fa-angle-up" type="submit" name="answer-vote-button" value="Downvote"
+                           formmethod="post"
+                           formaction="/question/<question_id>/vote-down"></i>
+                </button>
+
+                <a href="/answer/{{ answer['id'] }}/edit"><i class="far fa-edit" style="color: black"></i></a>
+                <a href="/answer/{{ answer['id'] }}/delete"><i class="fas fa-trash-alt" style="color: black"></i></a>
+            </p>
             <h5>Comments:
                 <a href="/question/{{ question['id'] }}/{{ answer['id'] }}/new_comment"><i class="far fa-plus-square"
                                                                                            style="color: black"></i></a>
@@ -69,23 +95,9 @@
                 {% if answer['id'] == answer_comment['answer_id'] %}
                     <h6>
                         <p>{{ answer_comment['message'] }}
-                        <p>
-                            <button
-                            <i class="fas fa-angle-down" type="submit" name="answer-vote-button" value="Upvote"
-                               formmethod="post"
-                               formaction="/question/<question_id>/vote-up"></i>
-                            </button>
-                            <button><i class="fas fa-angle-up" type="submit" name="answer-vote-button" value="Downvote"
-                                       formmethod="post"
-                                       formaction="/question/<question_id>/vote-down"></i>
-                            </button>
 
-                            <a href="/answer/{{ answer['id'] }}/edit"><i class="far fa-edit"
-                                                                         style="color: black"></i></a>
-                            <a href="/answer/{{ answer['id'] }}/delete"><i class="fas fa-trash-alt"
-                                                                           style="color: black"></i></a>
                         </p>
-                        </p>
+
                     </h6>
                 {% endif %}
             {% endfor %}
@@ -96,12 +108,8 @@
         {% endfor %}
 
     </ul>
-    <h3><a href="/question/{{ question['id'] }}/new-answer">Add a new answer</a></h3>
+
 {% endfor %}
 </body>
 {% include 'footer.html' %}
 </html>
-
-
-
-
