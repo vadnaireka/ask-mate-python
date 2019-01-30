@@ -36,6 +36,10 @@
     <h5>
         {% for question_comment in question_comments %}
             <p>{{ question_comment['message'] }}</p>
+            <a href="/comments/{{ question_comment['id'] }}/edit/{{ question['id'] }}"><input type="button"
+                                                                                              value="Edit question comment"></a>
+            <a href="/comments/{{ question_comment['id'] }}/delete/{{ question['id'] }}"><input type="button"
+                                                                                                value="Delete question comment"></a>
         {% endfor %}
     </h5>
     <button type="submit" name="question-upvote" value="{{ question['id'] }}" formmethod="post"
@@ -80,3 +84,4 @@
 </body>
 {% include 'footer.html' %}
 </html>
+

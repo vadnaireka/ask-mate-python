@@ -115,6 +115,14 @@ def add_question(cursor, submission_time, view_number, vote_number, title, messa
 
 
 @database_common.connection_handler
+def add_answer(cursor, submission_time, vote_number, question_id, message, image):
+    cursor.execute("""
+                    insert into answer (submission_time, vote_number, question_id, message, image)
+                    values (%s, %s, %s, %s, %s)
+                    """, (submission_time, vote_number, question_id, message, image))
+
+
+@database_common.connection_handler
 def add_comment_to_question(cursor, question_id, message, submission_time, edited_count):
     cursor.execute("""
                     insert into comment (question_id, message, submission_time, edited_count)
@@ -128,6 +136,7 @@ def add_comment_to_answer(cursor, answer_id, message, submission_time, edited_co
                     insert into comment (answer_id, message, submission_time, edited_count)
                     values (%s, %s, %s, %s)
                     """,(answer_id, message, submission_time, edited_count))
+
 
 @database_common.connection_handler
 def search_question(cursor, search):
@@ -147,3 +156,13 @@ def search_answer(cursor, search):
                     """, {'search_phrase': search})
     search_data = cursor.fetchall()
     return search_data
+
+
+@database_common.connection_handler
+def delete_comment_from_database(cursor, id):
+    cursor.execute("""
+                    delete from comment
+                    where  id = %(id)s
+                    """, {'id': id})
+
+

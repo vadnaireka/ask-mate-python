@@ -1,6 +1,8 @@
-from flask import Flask, render_template, redirect, request, session, url_for
+
+from flask import Flask, render_template, redirect, request, session, url_for, flash
 from datetime import datetime
 import functions
+
 
 app = Flask(__name__)
 
@@ -102,6 +104,7 @@ def search_question():
     search_answer = functions.search_answer(search)
     return render_template('search.html', data=search_data, answer_data=search_answer)
 
+
 @app.route('/answer/<answer_id>/edit', methods=['GET', 'POST'])
 def edit_answer(answer_id):
     if request.method == 'GET':
@@ -109,6 +112,11 @@ def edit_answer(answer_id):
         answer = answers[0]
         return render_template('edit_answer.html', answer=answer)
 
+
+@app.route('/comments/<comment_id>/delete/<question_id>', methods=['GET', 'POST'])
+def delete_comment_from_database(comment_id, question_id):
+    functions.delete_comment_from_database(comment_id)
+    return redirect(url_for('route_question', id=question_id))
 
 
 if __name__ == '__main__':
