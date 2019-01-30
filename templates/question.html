@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <title>Question Display</title>
     <link rel="stylesheet" href="/static/style.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 <body>
 <div id="story"></div>
 {% for question in question %}
     <h2>{{ question.title }}</h2>
-<button type="submit" name="question-upvote" value="{{ question['id'] }}" formmethod="post"
+    <button type="submit" name="question-upvote" value="{{ question['id'] }}" formmethod="post"
             formaction="/question/<question_id>/vote-up">Upvote
     </button>
     <button type="submit" name="question-downvote" value="{{ question['id'] }}" formmethod="post"
@@ -45,8 +46,11 @@
     <h5>
         {% for question_comment in question_comments %}
             <p>{{ question_comment['message'] }}
-            <a href="/comments/{{ question_comment['id'] }}/edit/{{ question['id'] }}"><i class="far fa-edit" style="color: black"></i></a>
-            <a href="/comments/{{ question_comment['id'] }}/delete/{{ question['id'] }}"><i class="fas fa-trash-alt" style="color: black"></i></a></p>
+                <a href="/comments/{{ question_comment['id'] }}/edit/{{ question['id'] }}"><i class="far fa-edit"
+                                                                                              style="color: black"></i></a>
+                <a href="/comments/{{ question_comment['id'] }}/delete/{{ question['id'] }}"><i class="fas fa-trash-alt"
+                                                                                                style="color: black"></i></a>
+            </p>
         {% endfor %}
     </h5>
 
@@ -59,21 +63,23 @@
             {% for answer_comment in answer_comments %}
                 {% if answer['id'] == answer_comment['answer_id'] %}
                     <h6>
-                        <p>{{ answer_comment['message'] }}</p>
+                        <p>{{ answer_comment['message'] }}
+                        <p>
+                            <button <i class="fas fa-angle-down" type="submit" name="answer-vote-button" value="Upvote" formmethod="post"
+                                    formaction="/question/<question_id>/vote-up"></i>
+                            </button>
+                            <button> <i class="fas fa-angle-up" type="submit" name="answer-vote-button" value="Downvote" formmethod="post"
+                                    formaction="/question/<question_id>/vote-down"></i>
+                            </button>
+                            <a href="/question/{{ question['id'] }}/{{ answer['id'] }}/new_comment"><i class="far fa-plus-square" style="color: black"></i></a>
+                            <a href="/answer/{{ answer['id'] }}/edit"><i class="far fa-edit" style="color: black"></i></a>
+                            <a href="/answer/{{ answer['id'] }}/delete"><i class="fas fa-trash-alt" style="color: black"></i></a>
+                        </p>
+                        </p>
                     </h6>
                 {% endif %}
             {% endfor %}
-            <p>
-                <button type="submit" name="answer-vote-button" value="Upvote" formmethod="post"
-                        formaction="/question/<question_id>/vote-up">Upvote
-                </button>
-                <button type="submit" name="answer-vote-button" value="Downvote" formmethod="post"
-                        formaction="/question/<question_id>/vote-down">Downvote
-                </button>
-                <a href="/question/{{ question['id'] }}/{{ answer['id'] }}/new_comment"><input type="button"
-                                                                                               value="Add answer comment"></a>
-                <a href="/answer/{{ answer['id'] }}/edit"><input type="button" value="Edit answer comment"></a>
-            </p>
+
             <p>Vote number: {{ answer['vote_number'] }}</p>
             <hr style="margin-right: 600px">
 
