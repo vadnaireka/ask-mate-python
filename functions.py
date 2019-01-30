@@ -27,7 +27,7 @@ def delete_question_by_question_id(cursor, id):
 @database_common.connection_handler
 def list_questions(cursor):
     cursor.execute("""
-                    SELECT title, id FROM question
+                    SELECT * FROM question
                     """)
     data = cursor.fetchall()
     return data
@@ -54,11 +54,41 @@ def display_comment(cursor, id):
 
 
 @database_common.connection_handler
+def display_comment_for_answer(cursor):
+    cursor.execute("""
+                    SELECT * FROM comment
+                    where answer_id is not null
+                    """)
+    comment_data = cursor.fetchall()
+    return comment_data
+
+
+@database_common.connection_handler
+def display_comment_for_question(cursor, id):
+    cursor.execute("""
+                    SELECT * FROM comment
+                    where question_id = %s
+                    """, id)
+    comment_data = cursor.fetchall()
+    return comment_data
+
+
+@database_common.connection_handler
 def display_answer(cursor, id):
     cursor.execute("""
                     SELECT * FROM answer
                     where question_id = %s
                     """, id)
+    answer_data = cursor.fetchall()
+    return answer_data
+
+
+@database_common.connection_handler
+def display_answer_by_id(cursor, id):
+    cursor.execute("""
+                    SELECT * FROM answer
+                    where id = %(id)s
+                    """, {'id' : id})
     answer_data = cursor.fetchall()
     return answer_data
 
@@ -85,3 +115,22 @@ def add_comment_to_answer(cursor, answer_id, message, submission_time, edited_co
                     insert into comment (answer_id, message, submission_time, edited_count)
                     values (%s, %s, %s, %s)
                     """,(answer_id, message, submission_time, edited_count))
+
+@database_common.connection_handler
+def search_question(cursor, search):
+    cursor.execute("""
+                    SELECT * FROM question
+                    where title like %(search_phrase)s or message like %(search_phrase)s
+                    """, {'search_phrase': search})
+    search_data = cursor.fetchall()
+    return search_data
+
+
+@database_common.connection_handler
+def search_answer(cursor, search):
+    cursor.execute("""
+                    SELECT * FROM answer
+                    where message like %(search_phrase)s
+                    """, {'search_phrase': search})
+    search_data = cursor.fetchall()
+    return search_data

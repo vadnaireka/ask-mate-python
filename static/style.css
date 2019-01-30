@@ -1,10 +1,10 @@
 h1 {
     color: darkslategray;
-    padding-right: 140px;
-    padding-top: 100px;
     font-family: 'Courier New', cursive;
     font-size: 60px;
-    text-align: right;
+    position: absolute;
+    right: 150px;
+    top: 100px;
 }
 
 h2{
@@ -42,7 +42,7 @@ hr{
     color: #9291911a;
 }
 
-#question_massage{
+#question_message{
     padding-right: 600px;
 }
 
@@ -58,4 +58,22 @@ thead{
     text-decoration: underline;
     font-size: 18px;
     font-weight: bolder;
+}
+
+#search_form{
+    padding-top: 30px;
+    position: absolute;
+    top: 20px;
+    left: 50px;
+}
+
+#add_question{
+    position: absolute;
+    top: 150px;
+    left: 50px;
+}
+
+#list_question{
+    position: absolute;
+    top: 250px;
 }
