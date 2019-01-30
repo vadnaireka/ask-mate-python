@@ -9,7 +9,7 @@
 </head>
 <body>
     {% for question in question %}
-        <h2>{{ question.title }}</h2>
+        <h2 id="question">{{ question.title }}</h2>
         <table>
             <thead>
                 <td>ID</td>
@@ -19,7 +19,7 @@
                 <td>Image</td>
                 <td>Vote</td>
                 <td>
-                    <a href="/question/{{ question['id'] }}/delete"><i class="fas fa-trash-alt" style="color: black"></i></a>
+                    <a href="/question/{{ question['id'] }}/delete"><i class="fas fa-trash-alt" style="color: whitesmoke"></i></a>
                 </td>
             </thead>
             <tbody>
@@ -49,22 +49,21 @@
             <p>Image:</p>
             <p>{{ question['image'] }}</p>
         {% endif %}
-        <h4>Question comments:<a href="/question/{{ question['id'] }}/new_comment"><i class="far fa-plus-square"
-                                                                                      style="color: black"></i></a></h4>
+        <h4>Question comments:<a href="/question/{{ question['id'] }}/new_comment"><i class="far fa-plus-square" style="color: whitesmoke"></i></a></h4>
         <h5>
             {% for question_comment in question_comments %}
                 <p id="question_comment">{{ question_comment['message'] }}
                     <a href="/comments/{{ question_comment['id'] }}/edit/{{ question['id'] }}"><i class="far fa-edit"
-                                                                                                  style="color: black"></i></a>
+                                                                                                  style="color: whitesmoke"></i></a>
                     <a href="/comments/{{ question_comment['id'] }}/delete/{{ question['id'] }}"><i class="fas fa-trash-alt"
-                                                                                                    style="color: black"></i></a>
+                                                                                                    style="color: whitesmoke"></i></a>
                 </p>
             {% endfor %}
         </h5>
 
         <hr style="margin-right: 600px;">
         <h3>Answers:
-        <a href="/question/{{ question['id'] }}/new-answer"><i class="far fa-plus-square" style="color: black"></i></a></h4>
+        <a href="/question/{{ question['id'] }}/new-answer"><i class="far fa-plus-square" style="color: whitesmoke"></i></a></h4>
 
         <ul>
             {% for answer in answers %}
@@ -75,20 +74,20 @@
                     <button
                         <i class="fas fa-angle-down" type="submit" name="answer-vote-button" value="Upvote"
                            formmethod="post"
-                           formaction="/question/<question_id>/vote-up"></i>
+                           formaction="/question/<question_id>/vote-up" style="color: darkslategray;"></i>
                     </button>
                     <button>
                         <i class="fas fa-angle-up" type="submit" name="answer-vote-button" value="Downvote"
                                formmethod="post"
-                               formaction="/question/<question_id>/vote-down"></i>
+                               formaction="/question/<question_id>/vote-down" style="color: darkslategray"></i>
                     </button>
 
-                    <a href="/answer/{{ answer['id'] }}/edit"><i class="far fa-edit" style="color: black"></i></a>
-                    <a href="/answer/{{ answer['id'] }}/delete/{{ answer['question_id'] }}"><i class="fas fa-trash-alt" style="color: black"></i></a>
+                    <a href="/answer/{{ answer['id'] }}/edit"><i class="far fa-edit" style="color: whitesmoke"></i></a>
+                    <a href="/answer/{{ answer['id'] }}/delete/{{ answer['question_id'] }}"><i class="fas fa-trash-alt" style="color: whitesmoke"></i></a>
                 </p>
                 <h4>Comments:
                     <a href="/question/{{ question['id'] }}/{{ answer['id'] }}/new_comment"><i class="far fa-plus-square"
-                                                                                               style="color: black"></i></a>
+                                                                                               style="color: whitesmoke"></i></a>
                 </h4>
                 {% for answer_comment in answer_comments %}
                     {% if answer['id'] == answer_comment['answer_id'] %}
