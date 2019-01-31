@@ -1,4 +1,5 @@
 import database_common
+from psycopg2 import sql
 
 
 fieldnames_question = ['id', 'submission_time', 'view_number', 'vote_number', 'title', 'message', 'image']
@@ -89,9 +90,8 @@ def list_five_questions(cursor):
 def sort_questions(cursor, order_by, order_direction):
     cursor.execute(sql.SQL("""SELECT *  FROM question
                               ORDER BY {order_by} {order_direction}
-                """).format(order_by=sql.Identifier(order_by),
-                            order_direction=sql.SQL(order_direction))
-    )
+                """.format(order_by=order_by,
+                            order_direction=order_direction)))
     data = cursor.fetchall()
     return data
 

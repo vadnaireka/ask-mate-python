@@ -10,17 +10,17 @@
 <body>
     {% for answer in answers %}
        {% for question in questions %}
-    <h2>{{ answer['title'] }}</h2>
-    <p>{{ answer['message'] }}</p>
-    <form action= '/question/{{question['id']}}/{{answer['id']}}/new_comment' method="POST">
-    {% endfor %}
+        <h2>{{ question['title'] }}</h2>
+        <p>{{ answer['message'] }}</p>
+        <form action= '/question/{{question['id']}}/{{answer['id']}}/new_comment' method="POST">
+        {% endfor %}
     {% endfor %}
         <p>
-            <label for="comment">Please type in your comment:</label><br>
-            <textarea name="comment" rows="5" cols="100" minlength="10" placeholder="Please enter your comment here..." formmethod="post" required></textarea>
+            <textarea name="comment" rows="5" cols="100" style="background: lightgoldenrodyellow" placeholder="Please enter your comment here..." formmethod="post" required></textarea>
         </p>
         <button type="submit">Submit</button>
 
     </form>
 </body>
+{% include 'footer.html' %}
 </html>

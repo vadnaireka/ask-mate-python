@@ -13,6 +13,7 @@ def route_list():
         order_by = request.form['column']
         order_direction = request.form['order']
         data = functions.sort_questions(order_by, order_direction)
+        url = 'home'
     if request.method == 'GET':
         url = 'home'
         data = functions.list_five_questions()
