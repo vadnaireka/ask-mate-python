@@ -16,10 +16,27 @@ def new_answer(cursor, id):
 
 
 @database_common.connection_handler
+def delete_allcomments_by_question_id(cursor, id):
+    cursor.execute("""
+                    delete from comment
+                    where question_id = %(id)s
+                    """, {'id': id})
+    delete_answers_by_question_id(id)
+
+
+@database_common.connection_handler
 def delete_answers_by_question_id(cursor, id):
     cursor.execute("""
                     delete from answer
                     where question_id = %(id)s
+                    """, {'id': id})
+
+
+@database_common.connection_handler
+def delete_all_comments_by_question_id(cursor, id):
+    cursor.execute("""
+                    delete from comment
+                    where question_id = %(id)s;
                     """, {'id': id})
 
 
@@ -44,7 +61,7 @@ def delete_comment_by_question_id(cursor, id):
     cursor.execute("""
                     delete from comment
                     where id = %(id)s
-                    """, {'id': id})
+                    """, {'id': id})\
 
 
 @database_common.connection_handler
@@ -212,6 +229,25 @@ def delete_comment_from_database(cursor, id):
                     delete from comment
                     where  id = %(id)s
                     """, {'id': id})
+
+
+@database_common.connection_handler
+def delete_comment_by_answer_id(cursor, answer_id):
+    cursor.execute("""
+                    delete from comment
+                    where  answer_id = %(answer_id)s
+                    """, {'answer_id': answer_id})
+
+
+@database_common.connection_handler
+def get_comments_by_question_id(cursor, question_id):
+    cursor.execute("""
+                    select answer_id from comment
+                    where  id = %(question_id)s
+                    """, {'question_id': question_id})
+    answer_ids = cursor.fetchall()
+    return answer_ids
+
 
 
 @database_common.connection_handler

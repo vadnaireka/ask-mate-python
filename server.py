@@ -57,11 +57,14 @@ def route_new_answer(id):
 
 @app.route('/question/<id>/delete')
 def delete_question(id):
+    functions.delete_all_comments_by_question_id(id)
+    functions.delete_comment_by_answer_id(id)
     functions.delete_comment_by_question_id(id)
+    functions.delete_question_tag_by_question_id(id)
     functions.delete_answers_by_question_id(id)
     functions.delete_question_by_question_id(id)
-    functions.delete_question_tag_by_question_id(id)
     return redirect(url_for('route_list'))
+
 
 
 @app.route('/answer/<answer_id>/delete/<question_id>')
