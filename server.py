@@ -33,7 +33,8 @@ def route_question(id=id):
     answers = functions.display_answer(id)
     question_comments = functions.display_comment_for_question(id)
     answer_comments = functions.display_comment_for_answer()
-    view_number = functions.up_view_number(id)
+    if request.method == 'GET':
+        view_number = functions.up_view_number(id)
     return render_template('question.html', question=question, answers=answers, answer_comments=answer_comments,
                            question_comments=question_comments, view_number=view_number)
 
