@@ -3,6 +3,7 @@ import database_common
 fieldnames_question = ['id', 'submission_time', 'view_number', 'vote_number', 'title', 'message', 'image']
 fieldnames_answer = ['id', 'submission_time', 'vote_number', 'question_id', 'message', 'image']
 
+
 @database_common.connection_handler
 def new_answer(cursor, id):
     cursor.execute("""
@@ -27,7 +28,7 @@ def delete_answer_by_answer_id_from_comments(cursor, id):
     cursor.execute("""
                     delete from comment
                     where  answer_id = %(id)s;  
-                    """, {'id':id})
+                    """, {'id': id})
 
 
 @database_common.connection_handler
@@ -35,7 +36,7 @@ def delete_answer_by_answer_id(cursor, id):
     cursor.execute("""
                     delete from answer
                     where  id = %(id)s;  
-                    """, {'id':id})
+                    """, {'id': id})
 
 
 @database_common.connection_handler
@@ -60,6 +61,7 @@ def delete_question_by_question_id(cursor, id):
                     delete from question
                     where id = %(id)s
                     """, {'id': id})
+
 
 @database_common.connection_handler
 def list_questions(cursor):
@@ -135,7 +137,7 @@ def display_answer(cursor, id):
     cursor.execute("""
                     SELECT * FROM answer
                     where question_id = %(id)s
-                    """, {'id' : id})
+                    """, {'id': id})
     answer_data = cursor.fetchall()
     return answer_data
 
@@ -145,7 +147,7 @@ def display_answer_by_id(cursor, id):
     cursor.execute("""
                     SELECT * FROM answer
                     where id = %(id)s
-                    """, {'id' : id})
+                    """, {'id': id})
     answer_data = cursor.fetchall()
     return answer_data
 
@@ -171,7 +173,7 @@ def add_comment_to_question(cursor, question_id, message, submission_time, edite
     cursor.execute("""
                     insert into comment (question_id, message, submission_time, edited_count)
                     values (%s, %s, %s, %s)
-                    """,(question_id, message, submission_time, edited_count))
+                    """, (question_id, message, submission_time, edited_count))
 
 
 @database_common.connection_handler
@@ -179,7 +181,7 @@ def add_comment_to_answer(cursor, answer_id, message, submission_time, edited_co
     cursor.execute("""
                     insert into comment (answer_id, message, submission_time, edited_count)
                     values (%s, %s, %s, %s)
-                    """,(answer_id, message, submission_time, edited_count))
+                    """, (answer_id, message, submission_time, edited_count))
 
 
 @database_common.connection_handler
@@ -208,6 +210,7 @@ def delete_comment_from_database(cursor, id):
                     delete from comment
                     where  id = %(id)s
                     """, {'id': id})
+
 
 @database_common.connection_handler
 def update_answer(cursor, answer_id, updated_message, updated_image):
@@ -246,4 +249,3 @@ def update_comment(cursor, comment_id, updated_message, submission_time):
                     SET message = %s, submission_time=%s, edited_count = (edited_count+1)
                     WHERE id = %s
                     """, (updated_message, submission_time, comment_id))
-
