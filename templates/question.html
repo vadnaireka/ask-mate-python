@@ -70,11 +70,11 @@
     <a href="/question/{{ question['id'] }}/new-answer"><i class="far fa-plus-square" style="color: whitesmoke"></i></a>
     </h4>
 
-    <ul>
-        {% for answer in answers %}
-            <p>{{ answer['message'] }}</p>
-            <p>
-                Vote number: {{ answer['vote_number'] }}
+        <ul>
+            {% for answer in answers %}
+                <p id="answer_message">{{ answer['message'] }}</p>
+                <p id="answer_data">
+                    Vote number: {{ answer['vote_number'] }}
 
                 <button
                 <i class="fas fa-angle-down" type="submit" name="answer-vote-button" value="Upvote"
@@ -117,9 +117,8 @@
 
         {% endfor %}
 
-    </ul>
-
-{% endfor %}
+        </ul>
+    {% endfor %}
 </body>
 {% include 'footer.html' %}
 </html>
