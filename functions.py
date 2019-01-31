@@ -38,6 +38,16 @@ def list_questions(cursor):
 
 
 @database_common.connection_handler
+def list_five_questions(cursor):
+    cursor.execute("""
+                    SELECT * FROM question
+                    LIMIT 5
+                    """)
+    data = cursor.fetchall()
+    return data
+
+
+@database_common.connection_handler
 def sort_questions(cursor, column, order):
     cursor.execute("""
                     SELECT * FROM question
