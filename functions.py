@@ -65,6 +65,7 @@ def delete_comment_by_question_id(cursor, id):
                     """, {'id': id})
 
 
+
 @database_common.connection_handler
 def delete_question_tag_by_question_id(cursor, id):
     cursor.execute("""
@@ -77,8 +78,8 @@ def delete_question_tag_by_question_id(cursor, id):
 def delete_question_by_question_id(cursor, id):
     cursor.execute("""
                     delete from question
-                    where id = %s
-                    """, tuple(id))
+                    where id = %(id)s
+                    """, {'id': id})
 
 
 @database_common.connection_handler
@@ -106,8 +107,8 @@ def list_five_questions(cursor):
 def sort_questions(cursor, order_by, order_direction):
     cursor.execute(sql.SQL("""SELECT *  FROM question
                               ORDER BY {order_by} {order_direction}
-                """.format(order_by=order_by,
-                            order_direction=order_direction)))
+                        """.format(order_by=order_by,
+                                    order_direction=order_direction)))
     data = cursor.fetchall()
     return data
 
@@ -288,3 +289,21 @@ def update_comment(cursor, comment_id, updated_message, submission_time):
                     SET message = %s, submission_time=%s, edited_count = (edited_count+1)
                     WHERE id = %s
                     """, (updated_message, submission_time, comment_id))
+
+
+@database_common.connection_handler
+def up_question_vote_number(cursor, id):
+    cursor.execute("""
+                    UPDATE question
+                    SET vote_number = vote_number + 1
+                    WHERE id = %(id)s
+                    """, {'id': id})
+
+
+@database_common.connection_handler
+def down_question_vote_number(cursor, id):
+    cursor.execute("""
+                    UPDATE question
+                    SET vote_number = (vote_number - 1)
+                    WHERE id = %(id)s
+                    """, {'id': id})
