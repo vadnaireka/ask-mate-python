@@ -27,13 +27,14 @@ def list_all_questions():
 
 
 @app.route('/question/<id>', methods=['GET', 'POST'])
-def route_question(id=id, ):
+def route_question(id=id):
     question = functions.display_question(id)
     answers = functions.display_answer(id)
     question_comments = functions.display_comment_for_question(id)
     answer_comments = functions.display_comment_for_answer()
+    view_number = functions.up_view_number(id)
     return render_template('question.html', question=question, answers=answers, answer_comments=answer_comments,
-                           question_comments=question_comments)
+                           question_comments=question_comments, view_number=view_number)
 
 
 @app.route("/question/<id>/new-answer", methods=['GET', 'POST'])
