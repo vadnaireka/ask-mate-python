@@ -21,39 +21,6 @@ def delete_answers_by_question_id(cursor, id):
                     where  question_id = %s;  
                     """, id)
 
-
-@database_common.connection_handler
-def delete_answer_by_answer_id_from_comments(cursor, id):
-    cursor.execute("""
-                    delete from comment
-                    where  answer_id = %(id)s;  
-                    """, {'id':id})
-
-
-@database_common.connection_handler
-def delete_answer_by_answer_id(cursor, id):
-    cursor.execute("""
-                    delete from answer
-                    where  id = %(id)s;  
-                    """, {'id':id})
-
-
-@database_common.connection_handler
-def delete_comment_by_question_id(cursor, id):
-    cursor.execute("""
-                    delete from comment
-                    where  id = %s;  
-                    """, id)
-
-
-@database_common.connection_handler
-def delete_question_tag_by_question_id(cursor, id):
-    cursor.execute("""
-                    delete from question_tag
-                    where  id = %s;  
-                    """, id)
-
-
 @database_common.connection_handler
 def delete_question_by_question_id(cursor, id):
     cursor.execute("""
@@ -61,23 +28,10 @@ def delete_question_by_question_id(cursor, id):
                     where  id = %s;  
                     """, id)
 
-
 @database_common.connection_handler
 def list_questions(cursor):
     cursor.execute("""
                     SELECT * FROM question
-                    ORDER BY submission_time DESC
-                    """)
-    data = cursor.fetchall()
-    return data
-
-
-@database_common.connection_handler
-def list_five_questions(cursor):
-    cursor.execute("""
-                    SELECT * FROM question
-                    ORDER BY submission_time DESC 
-                    LIMIT 5;
                     """)
     data = cursor.fetchall()
     return data
@@ -97,8 +51,8 @@ def sort_questions(cursor, column, order):
 def display_question(cursor, id):
     cursor.execute("""
                     SELECT * FROM question
-                    where id = %(id)s
-                    """, {'id': id})
+                    where id = %s
+                    """, id)
     question_data = cursor.fetchall()
     return question_data
 
@@ -219,23 +173,4 @@ def update_answer(cursor, answer_id, updated_message, updated_image):
                     SET message = %s, image = %s
                     WHERE id = %s
                     """, (updated_message, updated_image, answer_id));
-
-
-@database_common.connection_handler
-def get_comment_before_edit(cursor, id):
-    cursor.execute("""
-                    SELECT * FROM comment
-                    where id = %(id)s
-                    """, {'id': id})
-    comment = cursor.fetchall()
-    return comment
-
-
-@database_common.connection_handler
-def update_comment(cursor, comment_id, updated_message, submission_time):
-    cursor.execute("""
-                    UPDATE comment
-                    SET message = %s, submission_time=%s, edited_count = (edited_count+1)
-                    WHERE id = %s
-                    """, (updated_message, submission_time, comment_id))
 
