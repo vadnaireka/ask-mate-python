@@ -10,9 +10,9 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def route_list():
     if request.method == 'POST':
-        column = request.form['column']
-        order = request.form['order']
-        data = functions.sort_questions(column, order)
+        order_by = request.form['column']
+        order_direction = request.form['order']
+        data = functions.sort_questions(order_by, order_direction)
     if request.method == 'GET':
         url = 'home'
         data = functions.list_five_questions()
