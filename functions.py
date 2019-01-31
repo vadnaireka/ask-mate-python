@@ -184,3 +184,14 @@ def update_answer(cursor, answer_id, updated_message, updated_image):
                     WHERE id = %s
                     """, (updated_message, updated_image, answer_id));
 
+
+@database_common.connection_handler
+def up_view_number(cursor, id):
+    cursor.execute("""
+                    UPDATE question
+                    SET view_number = view_number + 1
+                    WHERE id = %(id)s
+                    """, {'id': id});
+
+
+
