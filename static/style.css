@@ -46,7 +46,7 @@ a:hover{
 }
 
 body {
-    background-image: url("/static/fancybackground.jpg");
+    background-color: blue;
     background-attachment: fixed;
     background-size: 110%;
     padding-left: 20px;
