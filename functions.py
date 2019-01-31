@@ -65,18 +65,6 @@ def delete_question_by_question_id(cursor, id):
 def list_questions(cursor):
     cursor.execute("""
                     SELECT * FROM question
-                    ORDER BY submission_time DESC
-                    """)
-    data = cursor.fetchall()
-    return data
-
-
-@database_common.connection_handler
-def list_five_questions(cursor):
-    cursor.execute("""
-                    SELECT * FROM question
-                    ORDER BY submission_time DESC 
-                    LIMIT 5;
                     """)
     data = cursor.fetchall()
     return data
@@ -228,6 +216,17 @@ def update_answer(cursor, answer_id, updated_message, updated_image):
                     SET message = %s, image = %s
                     WHERE id = %s
                     """, (updated_message, updated_image, answer_id));
+
+
+@database_common.connection_handler
+def up_view_number(cursor, id):
+    cursor.execute("""
+                    UPDATE question
+                    SET view_number = view_number + 1
+                    WHERE id = %(id)s
+                    """, {'id': id});
+
+
 
 
 @database_common.connection_handler
