@@ -1,5 +1,5 @@
 h1 {
-    color: #97b0b0;
+    color: #decbb1;
     font-family: Ubuntu;
     font-size: 80px;
     position: absolute;
@@ -9,31 +9,32 @@ h1 {
 
 
 h2{
-    color: #ecd482;
+    color: #ab8343;
     font-size: 60px;
     font-family: Ubuntu;
+    padding-right: 500px;
     padding-left: 20px;
     padding-top: 30px;
-    text-decoration: underline;
 }
 
 #question{
-    color: #d7ac62;
+    color: #ab8343;
     font-size: 50px;
     padding-left: 30px;
 }
 
 h3{
     font-size: 25px;
-    color: #d7ac62;
+    color: #ab8343;
     padding-left: 30px;
 }
 h4{
-    padding-left: 20px;
+    padding-left: 50px;
+    color: #ab8343;
 }
 
 h5{
-    color: #d7ac62;
+    color: #ab8343;
     font-size: 20px;
     padding-left: 60px;
 }
@@ -49,13 +50,13 @@ p{
 a{
     font-size: 25px;
     padding-left: 20px;
-    color: #cb8b8b;
+    color: #ab8343;
     text-decoration: none;
 }
 
 
 a:hover{
-    color: olive;
+    color: #7c593a;
 }
 
 body {
@@ -73,6 +74,7 @@ form{
 
 li{
     padding-bottom: 10px;
+    list-style-type:none;
 }
 
 hr{
@@ -86,6 +88,9 @@ hr{
     font-size: 20px;
 }
 
+#answer_message{
+    font-size: 20px;
+}
 table{
     text-align: center;
     padding-bottom: 20px;
@@ -95,10 +100,39 @@ td{
     padding: 0px 30px;
 }
 
+.search_list{
+    padding-bottom: 0px;
+    font-size: 15px;
+    color: whitesmoke;
+}
+
+.search_title{
+    color: whitesmoke;
+    font-size: 20px;
+    padding-top: 20px;
+}
+
+#search_sheet{
+    position: absolute;
+    top: 150px
+}
+
+#search_phrase{
+    position: absolute;
+    top: 100px;
+    left: 50px;
+    color: whitesmoke;
+}
+
 thead{
     text-decoration: underline;
     font-size: 18px;
     font-weight: bolder;
+}
+
+footer{
+    padding-top: 50px;
+    padding-left: 30px;
 }
 
 #search_form{
@@ -108,14 +142,10 @@ thead{
     left: 50px;
 }
 
-#search_form.hover{
-    size: landscape;
-}
-
 #add_question{
     position: absolute;
-    top: 150px;
-    left: 50px;
+    top: 125px;
+    left: 70px;
 }
 
 #list_question{
@@ -136,10 +166,15 @@ thead{
     font-size: smaller;
 
 #question_comment{
-    padding-left: 40px;
+    padding-left: 70px;
     font-size: 17px;
 }
 
 #answer_comment{
     font-weight: lighter;
+    padding-left: 85px;
+}
+
+textarea{
+    background: navy;
 }

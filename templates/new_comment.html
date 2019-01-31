@@ -14,10 +14,10 @@
     <form action= '/question/{{question['id']}}/new_comment/' method="POST">
         {% endfor %}
         <p>
-            <label for="comment">Please type in your comment:</label><br>
             <textarea name="comment" rows="5" cols="100" placeholder="Please enter your comment here..." formmethod="post" required></textarea>
         </p>
         <button type="submit">Submit</button>
     </form>
 </body>
+{% include 'footer.html' %}
 </html>

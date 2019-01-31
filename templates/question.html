@@ -9,20 +9,19 @@
 </head>
 <body>
 {% for question in question %}
-    <h2 id="question">{{ question.title }}</h2>
+    <h2 id="question">{{ question.title }}
+        <a href="/question/{{ question['id'] }}/delete" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt"
+                                                               style="color: whitesmoke"></i></a>
+        <a href="{{ url_for('route_list') }}"><i class="fas fa-home" style="color: whitesmoke"></i></a><br>
+    </h2>
     <table>
         <thead>
-        <td>ID</td>
-        <td>Submission time</td>
-        <td>Number of views</td>
-        <td>Number of votes</td>
-        <td>Image</td>
-        <td>Vote</td>
-        <td>
-            <a href="/question/{{ question['id'] }}/delete" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt"
-                                                               style="color: whitesmoke"></i></>
-
-        </td>
+            <td>ID</td>
+            <td>Submission time</td>
+            <td>Number of views</td>
+            <td>Number of votes</td>
+            <td>Image</td>
+            <td>Vote</td>
         </thead>
         <tbody>
         <td>{{ question.id }}</td>
@@ -70,13 +69,11 @@
     <h3>Answers:
     <a href="/question/{{ question['id'] }}/new-answer"><i class="far fa-plus-square" style="color: whitesmoke"></i></a>
     </h4>
-
         <ul>
             {% for answer in answers %}
                 <p id="answer_message">{{ answer['message'] }}</p>
                 <p id="answer_data">
                     Vote number: {{ answer['vote_number'] }}
-
                 <button
                 <i class="fas fa-angle-down" type="submit" name="answer-vote-button" value="Upvote"
                    formmethod="post"

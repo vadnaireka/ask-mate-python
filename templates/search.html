@@ -9,18 +9,24 @@
 </head>
 <body>
 <h1>Ask Mate</h1>
-    <p> Results in questions:
+    <form id=search_form action=/search method="get">
+        <input name="search_phrase">
+        <input type="submit" value="Search">
+    </form>
+    <i id="search_phrase">Search Phrase: {{  search_phrase }}</i>
+    <div id="search_sheet">
+    <i class="search_title"> Results in questions:</i>
     {% for result in data %}
-        <li>
-            <a href= "/question/{{ result.id }}">{{ result.title}}</a>
+        <li class="search_list">
+           <a href= "/question/{{ result.id }}">{{ result.title}}</a>
         </li>
     {% endfor %}
-    </p>
-    <p>Results in answers:
+
+    <i class="search_title">Results in answers:</i>
     {% for result in answer_data %}
-        <li><a href="/question/{{ result.question_id }}">{{ result.message }}</a></li>
+        <li class="search_list"><a href="/question/{{ result.question_id }}">{{ result.message }}</a></li>
     {% endfor %}
-    </p>
+
 </body>
 {% include 'footer.html' %}
 </html>
