@@ -18,8 +18,8 @@ def new_answer(cursor, id):
 def delete_answers_by_question_id(cursor, id):
     cursor.execute("""
                     delete from answer
-                    where  question_id = %s;  
-                    """, id)
+                    where question_id = %(id)s
+                    """, {'id': id})
 
 
 @database_common.connection_handler
@@ -42,25 +42,24 @@ def delete_answer_by_answer_id(cursor, id):
 def delete_comment_by_question_id(cursor, id):
     cursor.execute("""
                     delete from comment
-                    where  id = %s;  
-                    """, id)
+                    where id = %(id)s
+                    """, {'id': id})
 
 
 @database_common.connection_handler
 def delete_question_tag_by_question_id(cursor, id):
     cursor.execute("""
                     delete from question_tag
-                    where  id = %s;  
-                    """, id)
+                    where question_id = %(id)s
+                    """, {'id': id})
 
 
 @database_common.connection_handler
 def delete_question_by_question_id(cursor, id):
     cursor.execute("""
                     delete from question
-                    where  id = %s;  
-                    """, id)
-
+                    where id = %(id)s
+                    """, {'id': id})
 
 @database_common.connection_handler
 def list_questions(cursor):
@@ -127,8 +126,8 @@ def display_comment_for_answer(cursor):
 def display_comment_for_question(cursor, id):
     cursor.execute("""
                     SELECT * FROM comment
-                    where question_id = %s
-                    """, id)
+                    where question_id = %(id)s
+                    """, {'id': id})
     comment_data = cursor.fetchall()
     return comment_data
 
@@ -137,8 +136,8 @@ def display_comment_for_question(cursor, id):
 def display_answer(cursor, id):
     cursor.execute("""
                     SELECT * FROM answer
-                    where question_id = %s
-                    """, id)
+                    where question_id = %(id)s
+                    """, {'id' : id})
     answer_data = cursor.fetchall()
     return answer_data
 
