@@ -67,6 +67,7 @@ def delete_question_by_question_id(cursor, id):
 def list_questions(cursor):
     cursor.execute("""
                     SELECT * FROM question
+                    order by submission_time desc 
                     """)
     data = cursor.fetchall()
     return data
@@ -76,6 +77,7 @@ def list_questions(cursor):
 def list_five_questions(cursor):
     cursor.execute("""
                     SELECT * FROM question
+                    order by submission_time desc 
                     LIMIT 5
                     """)
     data = cursor.fetchall()
