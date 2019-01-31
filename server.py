@@ -44,7 +44,8 @@ def route_new_answer(id):
         question = questions[0]
         return render_template('new_answer.html', question=question)
     if request.method == 'POST':
-        submission_time = datetime.now()
+        dt = datetime.now()
+        submission_time = dt.strftime('%Y-%m-%d %H:%M:%S')
         vote_number = 0
         questions = functions.display_question(id)
         question = questions[0]
@@ -79,7 +80,8 @@ def route_save_question():
     if request.method == 'GET':
         return render_template('add_question.html')
     if request.method == 'POST':
-        submission_time = datetime.now()
+        dt = datetime.now()
+        submission_time = dt.strftime('%Y-%m-%d %H:%M:%S')
         view_number = 0
         vote_number = 0
         title = request.form['title']
@@ -97,7 +99,8 @@ def add_new_comment(question_id):
         return render_template('new_comment.html', questions=questions, answers=answers)
     if request.method == 'POST':
         message = request.form['comment']
-        submission_time = datetime.now()
+        dt = datetime.now()
+        submission_time = dt.strftime('%Y-%m-%d %H:%M:%S')
         edited_count = 0
         functions.add_comment_to_question(question_id, message, submission_time, edited_count)
         return redirect(url_for('route_question', id=question_id))
@@ -111,7 +114,8 @@ def add_comment_to_answer(question_id, answer_id):
         return render_template('new_comment_to_answer.html', questions=questions, answers=answers)
     if request.method == 'POST':
         message = request.form['comment']
-        submission_time = datetime.now()
+        dt = datetime.now()
+        submission_time = dt.strftime('%Y-%m-%d %H:%M:%S')
         edited_count = 0
         functions.add_comment_to_answer(answer_id, message, submission_time, edited_count)
         return redirect(url_for('route_question', id=question_id, answer_id=answer_id))
@@ -149,7 +153,8 @@ def edit_comment(comment_id):
         return render_template('edit_comment.html', comment=comment)
     if request.method == 'POST':
         updated_message = request.form['message']
-        submission_time = datetime.now()
+        dt = datetime.now()
+        submission_time = dt.strftime('%Y-%m-%d %H:%M:%S')
         functions.update_comment(comment_id, updated_message, submission_time)
         return redirect(url_for('route_list'))
 
