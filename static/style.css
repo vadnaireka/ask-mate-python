@@ -1,36 +1,57 @@
 h1 {
-    color: darkslategray;
-    font-family: 'Courier New', cursive;
-    font-size: 60px;
+    color: #97b0b0;
+    font-family: Ubuntu;
+    font-size: 80px;
     position: absolute;
-    right: 150px;
+    right: 400px;
     top: 100px;
+}
 }
 
 h2{
-    color: darkslategray;
-    font-family: 'Courier New', cursive;
+    color: #ecd482;
+    font-size: 30px;
+    font-family: Ubuntu;
     padding-left: 20px;
     padding-top: 30px;
     text-decoration: underline;
+}
 
+#question{
+    color: #d7ac62;
+    font-size: 30px;
+    padding-left: 30px;
+}
+
+h4{
+    padding-left: 20px;
 }
 
 h5{
-    color: darkgreen;
+    color: #d7ac62;
+    font-size: 15px;
+    padding-left: 50px;
 }
 
 a{
-    font-size: 20px;
+    font-size: 25px;
     padding-left: 20px;
+    color: #cb8b8b;
+    text-decoration: none;
+}
+
+
+a:hover{
+    color: olive;
 }
 
 body {
-    background-image: url("/static/apple-background-connection-399161.jpg");
+    background-color: blue;
     background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: 110%;
     padding-left: 20px;
+    color: antiquewhite;
+    font-family: 'Ubuntu', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;
 }
 
 form{
@@ -43,7 +64,7 @@ li{
 
 hr{
     margin-right: 600px;
-    color: #9291911a;
+    color: #968b8b80;
 }
 
 #question_message{
@@ -52,6 +73,7 @@ hr{
 
 table{
     text-align: center;
+    padding-bottom: 20px;
 }
 
 td{
@@ -71,6 +93,10 @@ thead{
     left: 50px;
 }
 
+#search_form.hover{
+    size: landscape;
+}
+
 #add_question{
     position: absolute;
     top: 150px;
@@ -80,6 +106,7 @@ thead{
 #list_question{
     position: absolute;
     top: 250px;
+    color: antiquewhite;
 }
 
 #sort{
@@ -89,17 +116,15 @@ thead{
     left:50px
 }
 
-<<<<<<< Updated upstream
 #answer_image{
     font-weight: bold;
     font-size: smaller;
-=======
-.highlight{
-    background-color:#FFFF00
-}
 
 #question_comment{
     padding-left: 40px;
     font-size: 17px;
->>>>>>> Stashed changes
+}
+
+far fa-plus-square{
+    color: antiquewhite;
 }

@@ -27,13 +27,14 @@ def list_all_questions():
 
 
 @app.route('/question/<id>', methods=['GET', 'POST'])
-def route_question(id=id, ):
+def route_question(id=id):
     question = functions.display_question(id)
     answers = functions.display_answer(id)
     question_comments = functions.display_comment_for_question(id)
     answer_comments = functions.display_comment_for_answer()
+    view_number = functions.up_view_number(id)
     return render_template('question.html', question=question, answers=answers, answer_comments=answer_comments,
-                           question_comments=question_comments)
+                           question_comments=question_comments, view_number=view_number)
 
 
 @app.route("/question/<id>/new-answer", methods=['GET', 'POST'])
@@ -56,9 +57,18 @@ def route_new_answer(id):
 
 @app.route('/question/<id>/delete')
 def delete_question(id):
+    functions.delete_comment_by_question_id(id)
     functions.delete_answers_by_question_id(id)
     functions.delete_question_by_question_id(id)
+    functions.delete_question_tag_by_question_id(id)
     return redirect(url_for('route_list'))
+
+
+@app.route('/answer/<answer_id>/delete/<question_id>')
+def delete_answer(answer_id, question_id):
+    functions.delete_answer_by_answer_id_from_comments(answer_id)
+    functions.delete_answer_by_answer_id(answer_id)
+    return redirect(url_for('route_question', id=question_id))
 
 
 @app.route('/add-question', methods=['GET', 'POST'])
@@ -113,8 +123,8 @@ def search_question():
     return render_template('search.html', data=search_data, answer_data=search_answer, search_phrase=search_phrase)
 
 
-@app.route('/answer/<answer_id>/edit', methods=['GET', 'POST'])
-def edit_answer(answer_id):
+@app.route('/answer/<answer_id>/edit/<question_id>', methods=['GET', 'POST'])
+def edit_answer(answer_id, question_id):
     if request.method == 'GET':
         answers = functions.display_answer_by_id(answer_id)
         answer = answers[0]
@@ -126,6 +136,18 @@ def edit_answer(answer_id):
         answer = answers[0]
         answer_id = answer['id']
         functions.update_answer(answer_id, updated_message, updated_image)
+        return redirect(url_for('route_question', id=question_id))
+
+
+@app.route('/comments/<comment_id>/edit/', methods=['GET', 'POST'])
+def edit_comment(comment_id):
+    if request.method == 'GET':
+        comment = functions.get_comment_before_edit(comment_id)
+        return render_template('edit_comment.html', comment=comment)
+    if request.method == 'POST':
+        updated_message = request.form['message']
+        submission_time = datetime.now()
+        functions.update_comment(comment_id, updated_message, submission_time)
         return redirect(url_for('route_list'))
 
 
