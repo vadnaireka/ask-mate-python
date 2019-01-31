@@ -88,13 +88,13 @@
                 </button>
 
                 <a href="/answer/{{ answer['id'] }}/edit/{{ answer['question_id'] }}"><i class="far fa-edit"
-                                                                                         style="color: black"></i></a>
+                                                                                         style="color: whitesmoke"></i></a>
                 <a href="/answer/{{ answer['id'] }}/delete/{{ answer['question_id'] }}"><i class="fas fa-trash-alt"
-                                                                                           style="color: black"></i></a>
+                                                                                           style="color: whitesmoke"></i></a>
             </p>
             <h5>Comments:
                 <a href="/question/{{ question['id'] }}/{{ answer['id'] }}/new_comment"><i class="far fa-plus-square"
-                                                                                           style="color: black"></i></a>
+                                                                                           style="color: whitesmoke"></i></a>
             </h5>
             {% for answer_comment in answer_comments %}
                 {% if answer['id'] == answer_comment['answer_id'] %}
@@ -103,10 +103,10 @@
                             {{ answer_comment['submission_time'] }}
                             <a href="/comments/{{ answer_comment['id'] }}/edit"><i
                                     class="far fa-edit"
-                                    style="color: black"></i></a>
+                                    style="color: whitesmoke"></i></a>
                             <a href="/comments/{{ answer_comment['id'] }}/delete/{{ question['id'] }}"><i
                                     class="fas fa-trash-alt"
-                                    style="color: black"></i></a>
+                                    style="color: whitesmoke"></i></a>
                         </p>
                     </h6>
                 {% endif %}
