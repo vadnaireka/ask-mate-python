@@ -12,12 +12,10 @@
     <p>{{ question['message'] }}</p>
     <form action={{ url_for('route_new_answer', id=question['id']) }} method="POST">
         <p>
-            <label for="message">Answer:</label><br>
             <textarea name="message" rows="5" cols="100" placeholder="Please enter your answer here..." required></textarea>
         </p>
         <p>
-            <label for="image">Upload image:</label><br>
-            <textarea name="image" rows="1" cols="50"></textarea>
+            <textarea name="image" rows="1" cols="50" placeholder="Please enter the image URL"></textarea>
         </p>
         <button type="submit">Submit</button>
     </form>

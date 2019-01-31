@@ -30,13 +30,17 @@
         <td>{{ question['vote_number'] }}</td>
         <td>{{ question['image'] }}</td>
         <td>
-            <form method="post" action="/question/{{ question['id'] }}">
-                <button class="fas fa-angle-up" type="submit" name="question_vote" value="vote_up">
-                </button>
+            <button>
+                <i class="fas fa-angle-down" type="submit" name="question-upvote" value="{{ question['id'] }}"
+                   formmethod="post"
+                   formaction="/question/<question_id>/vote-up"></i>
+            </button>
 
-                <button class="fas fa-angle-down" type="submit" name="question_vote" value="vote_down">
-                </button>
-            </form>
+            <button>
+                <i class="fas fa-angle-up" type="submit" name="question-downvote" value="{{ question['id'] }}"
+                   formmethod="post"
+                   formaction="/question/<question_id>/vote-down"></i>
+            </button>
         </td>
         </tbody>
     </table>
