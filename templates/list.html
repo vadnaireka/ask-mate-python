@@ -30,9 +30,9 @@
             <li>
                 <a href= "/question/{{ question.id }}">{{ question.title }}</a></br>
                 <table id="question_data">
-                    <td><img src="static/check.png" alt="Vote" style="width:20px;height:20px;"> {{ question.vote_number }} </td>
-                    <td><img src="static/time.png" alt="Submission time" style="width:20px;height:20px;">: {{ question.submission_time }}</td>
-                    <td><img src="static/view.png" alt="View number" style="width:20px;height:20px;">: {{ question.view_number }}</td>
+                    <td><i class="fas fa-check"></i> {{ question.vote_number }} </td>
+                    <td><i class="far fa-clock"></i>: {{ question.submission_time }}</td>
+                    <td><i class="far fa-eye"></i>: {{ question.view_number }}</td>
                 </table>
             </li>
         {% endfor %}
