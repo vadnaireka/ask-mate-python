@@ -9,7 +9,6 @@
 
 </head>
 <body>
-{% for comment in comment %}
     {# TODO: miért kell a for loop? amúgy nem írja ki a message-t bele kellett tennem a commentet loopbe#}
     <form action={{ url_for('edit_comment', comment_id=comment['id']) }} method="POST">
     <p>
@@ -17,7 +16,6 @@
         <textarea name="message" rows="5" cols="100" required>{{comment['message']}}</textarea><br>
     </p>
     Edited {{ comment['edited_count'] }} times.
-{% endfor %}
 <button type="Update">Submit</button>
 </form>
 </body>

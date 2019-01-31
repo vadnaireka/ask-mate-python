@@ -77,8 +77,8 @@ def delete_question_tag_by_question_id(cursor, id):
 def delete_question_by_question_id(cursor, id):
     cursor.execute("""
                     delete from question
-                    where id = %(id)s
-                    """, {'id': id})
+                    where id = %s
+                    """, tuple(id))
 
 
 @database_common.connection_handler
@@ -277,7 +277,7 @@ def get_comment_before_edit(cursor, id):
                     SELECT * FROM comment
                     where id = %(id)s
                     """, {'id': id})
-    comment = cursor.fetchall()
+    comment = cursor.fetchone()
     return comment
 
 
