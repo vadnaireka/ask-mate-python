@@ -3,6 +3,18 @@
 import os
 import psycopg2
 import psycopg2.extras
+import bcrypt
+
+
+def hash_password(plain_text_password):
+    # By using bcrypt, the salt is saved into the hash itself
+    hashed_bytes = bcrypt.hashpw(plain_text_password.encode('utf-8'), bcrypt.gensalt())
+    return hashed_bytes.decode('utf-8')
+
+
+def verify_password(plain_text_password, hashed_password):
+    hashed_bytes_password = hashed_password.encode('utf-8')
+    return bcrypt.checkpw(plain_text_password.encode('utf-8'), hashed_bytes_password)
 
 
 def get_connection_string():
@@ -49,3 +61,5 @@ def connection_handler(function):
         return ret_value
 
     return wrapper
+
+
