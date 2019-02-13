@@ -1,0 +1,13 @@
+<header>
+    {%  if 'user_name' in session: %}
+                <h2>{{ session['user_name'] }}</h2>
+        <a href={{ url_for('logout_user') }}>Log out</a>
+    {%  else: %}
+    <form class="login" style="display: inline-block; margin-left: 60%;" action={{ url_for('login_user') }} method="POST">
+        <input type="text" name="user_name">
+        <input type="password" name="password">
+        <input type="submit" value="Login">
+    </form>
+        <a id='reg_link' href="{{ url_for('registrate_user') }}">Sign up</a>
+    {% endif %}
+</header>
