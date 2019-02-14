@@ -1,12 +1,11 @@
-
 from flask import Flask, render_template, redirect, request, session, url_for, flash
 from datetime import datetime
 import functions
 import database_common
 
-
 app = Flask(__name__)
 app.secret_key = 'cnhdéijgávmlgkhnslfmvkltgjh'
+
 
 @app.route('/', methods=['GET', 'POST'])
 def route_list():
@@ -48,7 +47,7 @@ def route_question(id=id):
         question_comments = functions.display_comment_for_question(id)
         answer_comments = functions.display_comment_for_answer()
         return render_template('question.html', question=question, answers=answers, answer_comments=answer_comments,
-                                question_comments=question_comments)
+                               question_comments=question_comments)
 
 
 @app.route("/question/<id>/new-answer", methods=['GET', 'POST'])
@@ -203,6 +202,7 @@ def login_user():
         session['user_name'] = user_name
         session['id'] = user_data['id']
         return redirect(url_for('route_list'))
+
 
 @app.route('/logout', methods=['GET'])
 def logout_user():
