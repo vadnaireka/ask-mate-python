@@ -190,3 +190,9 @@ textarea{
     display: inline-block;
     margin-left: 60%;
 }
+
+#username{
+    display: inline-block;
+    font-size: 25px;
+    color: #ab8343;
+}

@@ -1,7 +1,7 @@
 <header>
     {%  if 'user_name' in session: %}
-                <h2>{{ session['user_name'] }}</h2>
-        <a href={{ url_for('logout_user') }}>Log out</a>
+        <p id="username" style="color: #decbb1; font-size: 25px;position: absolute;margin-left: 57%;">Logged in as: {{ session['user_name'] }} <a id="logout" href={{ url_for('logout_user') }}>Logout</a></p>
+
     {%  else: %}
     <form class="login" style="display: inline-block; margin-left: 60%;" action={{ url_for('login_user') }} method="POST">
         <input type="text" name="user_name">
