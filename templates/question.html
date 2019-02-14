@@ -9,7 +9,11 @@
 </head>
 <body>
 {% for question in question %}
-    <h2 id="question">{{ question.title }}</h2>
+    <h2 id="question">{{ question.title }}
+        <a href="/question/{{ question['id'] }}/delete" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt"
+                                                               style="color: whitesmoke"></i></a>
+        <a href="{{ url_for('route_list') }}"><i class="fas fa-home" style="color: whitesmoke"></i></a><br>
+    </h2>
     <table>
         <thead>
         <td>ID</td>
@@ -49,17 +53,17 @@
     <h4>Question comments:<a href="/question/{{ question['id'] }}/new_comment"><i class="far fa-plus-square"
                                                                                   style="color: whitesmoke"></i></a>
     </h4>
-    <h5>
+    <h6>
         {% for question_comment in question_comments %}
             <p id="question_comment">{{ question_comment['message'] }}<br>
                 {{ question_comment['submission_time'] }}
                 <a href="/comments/{{ question_comment['id'] }}/edit/"><i class="far fa-edit"
                                                                           style="color: whitesmoke"></i></a>
-                <a href="/comments/{{ question_comment['id'] }}/delete/{{ question['id'] }}"><i class="fas fa-trash-alt"
-                                                                                                style="color: whitesmoke"></i></a>
+                <a href="/comments/{{ question_comment['id'] }}/delete/{{ question['id'] }}" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt"
+                                                                                                style="color: whitesmoke"></i></>
             </p>
         {% endfor %}
-    </h5>
+    </h6>
 
     <hr style="margin-right: 600px;">
     <h3>Answers:
@@ -90,7 +94,7 @@
             </p>
             <h5>Comments:
                 <a href="/question/{{ question['id'] }}/{{ answer['id'] }}/new_comment"><i class="far fa-plus-square"
-                                                                                           style="color: black"></i></a>
+                                                                                           style="color: whitesmoke"></i></a>
             </h5>
             {% for answer_comment in answer_comments %}
                 {% if answer['id'] == answer_comment['answer_id'] %}
@@ -99,10 +103,10 @@
                             {{ answer_comment['submission_time'] }}
                             <a href="/comments/{{ answer_comment['id'] }}/edit"><i
                                     class="far fa-edit"
-                                    style="color: black"></i></a>
-                            <a href="/comments/{{ answer_comment['id'] }}/delete/{{ question['id'] }}"><i
+                                    style="color: whitesmoke"></i></a>
+                            <a href="/comments/{{ answer_comment['id'] }}/delete/{{ question['id'] }}" onclick="return confirm('Are you sure you want to delete this item?');"><i
                                     class="fas fa-trash-alt"
-                                    style="color: black"></i></a>
+                                    style="color: whitesmoke"></i></a>
                         </p>
                     </h6>
                 {% endif %}

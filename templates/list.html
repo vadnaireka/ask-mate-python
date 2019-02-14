@@ -7,8 +7,13 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
 </head>
+{% include 'header.html' %}
 <body>
     <h1>Ask Mate</h1>
+
+
+
+
     <a id='add_question' href= {{ url_for('route_save_question') }}>Add new Question</a>
     <form id=search_form action=/search method="get">
         <input name="search_phrase">
@@ -23,7 +28,7 @@
         </select>
         <input type="radio" name="order" value="asc">ascending
         <input type="radio" name="order" value="desc">descending
-        <input type="submit" value="Sort">
+        <input type="submit" name='Submit' value="Sort">
     </form>
     <ul id="list_question" style="list-style-type:none;">
         {% for question in data: %}

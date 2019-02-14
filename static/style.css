@@ -12,6 +12,7 @@ h2{
     color: #ab8343;
     font-size: 60px;
     font-family: Ubuntu;
+    padding-right: 500px;
     padding-left: 20px;
     padding-top: 30px;
     padding-right: 500px;
@@ -177,4 +178,15 @@ footer{
 
 textarea{
     background: navy;
+}
+
+#reg_link{
+    display: inline-block;
+    margin-left: 75px;
+    position: absolute;
+}
+
+.login{
+    display: inline-block;
+    margin-left: 60%;
 }

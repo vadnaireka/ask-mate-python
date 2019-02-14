@@ -2,9 +2,10 @@
 from flask import Flask, render_template, redirect, request, session, url_for, flash
 from datetime import datetime
 import functions
-
+import database_common
 
 app = Flask(__name__)
+app.secret_key = 'cnhdéijgávmlgkhnslfmvkltgjh'
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -47,7 +48,7 @@ def route_question(id=id):
         question_comments = functions.display_comment_for_question(id)
         answer_comments = functions.display_comment_for_answer()
         return render_template('question.html', question=question, answers=answers, answer_comments=answer_comments,
-                                question_comments=question_comments)
+                               question_comments=question_comments)
 
 
 @app.route("/question/<id>/new-answer", methods=['GET', 'POST'])
@@ -65,7 +66,8 @@ def route_new_answer(id):
         question_id = question['id']
         message = request.form['message']
         image = request.form['image']
-        functions.add_answer(submission_time, vote_number, question_id, message, image)
+        user_name = session['user_name']
+        functions.add_answer(submission_time, vote_number, question_id, message, image, user_name)
         return redirect(url_for('route_question', id=question['id']))
 
 
@@ -78,7 +80,6 @@ def delete_question(id):
     functions.delete_answers_by_question_id(id)
     functions.delete_question_by_question_id(id)
     return redirect(url_for('route_list'))
-
 
 
 @app.route('/answer/<answer_id>/delete/<question_id>')
@@ -100,7 +101,8 @@ def route_save_question():
         title = request.form['title']
         message = request.form['message']
         image = ''
-        functions.add_question(submission_time, view_number, vote_number, title, message, image)
+        user_name = session['user_name']
+        functions.add_question(submission_time, view_number, vote_number, title, message, image, user_name)
         return redirect(url_for('route_list'))
 
 
@@ -115,7 +117,8 @@ def add_new_comment(question_id):
         dt = datetime.now()
         submission_time = dt.strftime('%Y-%m-%d %H:%M:%S')
         edited_count = 0
-        functions.add_comment_to_question(question_id, message, submission_time, edited_count)
+        user_name = session['user_name']
+        functions.add_comment_to_question(question_id, message, submission_time, edited_count, user_name)
         return redirect(url_for('route_question', id=question_id))
 
 
@@ -130,7 +133,8 @@ def add_comment_to_answer(question_id, answer_id):
         dt = datetime.now()
         submission_time = dt.strftime('%Y-%m-%d %H:%M:%S')
         edited_count = 0
-        functions.add_comment_to_answer(answer_id, message, submission_time, edited_count)
+        user_name = session['user_name']
+        functions.add_comment_to_answer(answer_id, message, submission_time, edited_count, user_name)
         return redirect(url_for('route_question', id=question_id, answer_id=answer_id))
 
 
@@ -178,10 +182,37 @@ def delete_comment_from_database(comment_id, question_id):
     return redirect(url_for('route_question', id=question_id))
 
 
+@app.route('/registration', methods=['GET', 'POST'])
+def registrate_user():
+    if request.method == 'GET':
+        return render_template('registration.html')
+    elif request.method == 'POST':
+        user_name = request.form['user_name']
+        hash = database_common.hash_password(request.form['password'])
+        submission_time = datetime.now()
+        functions.sign_up_user(user_name, hash, submission_time)
+        return redirect(url_for('route_list'))
+
+
+@app.route('/login', methods=['POST'])
+def login_user():
+    user_name = request.form['user_name']
+    user_data = functions.get_user_data(user_name)
+    verification = database_common.verify_password(request.form['password'], user_data['hash'])
+    if user_data['user_name'] == user_name and verification == True:
+        session['user_name'] = user_name
+        session['id'] = user_data['id']
+        return redirect(url_for('route_list'))
+
+
+@app.route('/logout', methods=['GET'])
+def logout_user():
+    session.pop('user_name', None)
+    return redirect(url_for('route_list'))
+
+
 if __name__ == '__main__':
     app.run(
         debug=True,
         port=5000
     )
-
----
