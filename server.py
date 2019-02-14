@@ -29,14 +29,25 @@ def list_all_questions():
 
 @app.route('/question/<id>', methods=['GET', 'POST'])
 def route_question(id=id):
-    question = functions.display_question(id)
-    answers = functions.display_answer(id)
-    question_comments = functions.display_comment_for_question(id)
-    answer_comments = functions.display_comment_for_answer()
     if request.method == 'GET':
-        view_number = functions.up_view_number(id)
-    return render_template('question.html', question=question, answers=answers, answer_comments=answer_comments,
-                           question_comments=question_comments, view_number=view_number)
+        functions.up_view_number(id)
+        answers = functions.display_answer(id)
+        question_comments = functions.display_comment_for_question(id)
+        answer_comments = functions.display_comment_for_answer()
+        question = functions.display_question(id)
+        return render_template('question.html', question=question, answers=answers, answer_comments=answer_comments,
+                               question_comments=question_comments)
+    if request.method == 'POST':
+        if request.form['question_vote'] == 'vote_up':
+            functions.up_question_vote_number(id)
+        elif request.form['question_vote'] == 'vote_down':
+            functions.down_question_vote_number(id)
+        question = functions.display_question(id)
+        answers = functions.display_answer(id)
+        question_comments = functions.display_comment_for_question(id)
+        answer_comments = functions.display_comment_for_answer()
+        return render_template('question.html', question=question, answers=answers, answer_comments=answer_comments,
+                                question_comments=question_comments)
 
 
 @app.route("/question/<id>/new-answer", methods=['GET', 'POST'])

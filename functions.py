@@ -288,3 +288,21 @@ def update_comment(cursor, comment_id, updated_message, submission_time):
                     SET message = %s, submission_time = %s, edited_count = (edited_count+1)
                     WHERE id = %s
                     """, (updated_message, submission_time, comment_id))
+
+
+@database_common.connection_handler
+def up_question_vote_number(cursor, id):
+    cursor.execute("""
+                    UPDATE question
+                    SET vote_number = vote_number + 1
+                    WHERE id = %(id)s
+                    """, {'id': id})
+
+
+@database_common.connection_handler
+def down_question_vote_number(cursor, id):
+    cursor.execute("""
+                    UPDATE question
+                    SET vote_number = (vote_number - 1)
+                    WHERE id = %(id)s
+                    """, {'id': id})
